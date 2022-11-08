@@ -50,7 +50,6 @@ const User = db.define('user', {
       isEmail: true
     }
   }
-
 })
 
 module.exports = User
