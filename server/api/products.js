@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Product },
+  models: { Product, User },
 } = require("../db");
 module.exports = router;
 
