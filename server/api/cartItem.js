@@ -1,6 +1,8 @@
 const router = require("express").Router()
 const {models : {CartItem, Product}} = require("../db")
 
+
+//GET /api/cartItem/allCartItems/:userId
 router.get("/allCartItems/:userId", async (req, res, next) => {
     try{
         const allCartItems = CartItem.findAll({
@@ -13,6 +15,7 @@ router.get("/allCartItems/:userId", async (req, res, next) => {
     }
 })
 
+//PUT /api/cartItem/changeCartQuantity/:userId/:productId
 router.put("/changeCartQuantity/:userId/:productId", async (req, res, next) => {
     try{
         const updatedQuantity = req.body
@@ -26,36 +29,36 @@ router.put("/changeCartQuantity/:userId/:productId", async (req, res, next) => {
     }
 })
 
+//POST /api/cartItem/addCartItem
 router.post("/addCartItem", async (req, res, next) => {
     try{
         const newCartItem = req.body
         const newItem = CartItem.create(newCartItem)
-        res.send(newItem)
+        res.status(201).send(newItem)
     } catch (err){
         next(err)
     }
 })
 
+//DELETE /api/cartItem/deleteSingleCartItem/:userId/:productId
 router.delete("/deleteSingleCartItem/:userId/:productId", async (req, res, next) => {
     try{
-        const itemToDelete = CartItem.findOne({
-            where: {userId: req.params.userId, productId: req.params.productId}
-        })
         await CartItem.destroy({
             where: {userId: req.params.userId, productId: req.params.productId}
         })
-       res.send(itemToDelete)
+       res.status(204)
     } catch(err){
         next(err)
     }
 })
 
+//DELETE /api/cartItem/deleteAllCartItems/:userId
 router.delete("/deleteAllCartItems/:userId", async (req, res, next) => {
     try{
         await CartItem.destroy({
             where: {userId: req.params.userId}
         })
-        res.send(null)
+        res.status(204)
     } catch(err){
         next(err)
     }
