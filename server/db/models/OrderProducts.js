@@ -5,10 +5,18 @@ const OrderProduct = db.define("orderProduct", {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    validate: {
+      min: 0,
+      notEmpty: true,
+    },
   },
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
+    validate: {
+      min: 0,
+      notEmpty: true,
+    },
   },
 });
 
