@@ -14,7 +14,7 @@ const Product = db.define("product", {
     type: Sequelize.TEXT,
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     validate: {
       min: 0,
@@ -29,11 +29,11 @@ const Product = db.define("product", {
     },
   },
   displayPrice: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(10, 2),
     set() {
       this.setDataValue(
         "displayPrice",
-        Math.round(this.price * this.discount * 100) / 100
+        Math.round(this.price * (1 - this.discount) * 100) / 100
       );
     },
   },
