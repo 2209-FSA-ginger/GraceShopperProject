@@ -32,11 +32,11 @@ const Order = db.define("order", {
     defaultValue: "USA",
   },
   zipcode: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
   },
   phone: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
   },
   email: {
@@ -47,7 +47,7 @@ const Order = db.define("order", {
     },
   },
   creditCard: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
   },
 });
