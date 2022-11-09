@@ -18,9 +18,23 @@ router.put("/changeCartQuantity/:userId/:productId", async (req, res) => {
     res.send(findCartItem)
 })
 
+router.post("/addCartItem", async (req, res) => {
+    const newCartItem = req.body
+    const newItem = CartItem.create(newCartItem)
+    res.send(newItem)
+})
 
-router.post
-router.delete
+router.delete("/deleteCartItem/:userId/:productId", async (req, res) => {
+    const itemToDelete = CartItem.findOne({
+        where: {userId: req.params.userId, productId: req.params.productId}
+    })
+    await CartItem.destroy({
+        where: {userId: req.params.userId, productId: req.params.productId}
+    })
+   res.send(itemToDelete)
+})
+
+
 router.delete
 
 
