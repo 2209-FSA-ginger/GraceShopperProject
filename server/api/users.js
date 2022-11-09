@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ["id", "username"],
     });
-    res.json(users);
+    res.send(users);
   } catch (err) {
     next(err);
   }
@@ -22,12 +22,8 @@ router.get("/", async (req, res, next) => {
 // GET a single user -> /api/users/:id
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await User.findAll({
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json(user);
+    const user = await User.findByPk(req.params.id);
+    res.send(user);
   } catch (err) {
     next(err);
   }
@@ -36,11 +32,7 @@ router.get("/:id", async (req, res, next) => {
 // PUT a single user -> /api/users/:id
 router.put("/:id", async (req, res, next) => {
   try {
-    const user = await User.findAll({
-      where: {
-        id: req.params.id,
-      },
-    });
+    const user = await User.findByPk(req.params.id);
     const updatedUser = await user.update(req.body);
     res.status(200).send(updatedUser);
   } catch (err) {
