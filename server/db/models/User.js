@@ -35,11 +35,10 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      isEmail: true
     }
   },
-  role: {
-    type: Sequelize.ENUM("Admin", "Non-Admin"),
+  isAdmin: {
+    type: Sequelize.ENUM(true, false),
     allowNull: false,
   },
   email: {
