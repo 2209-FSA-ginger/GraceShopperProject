@@ -38,8 +38,8 @@ const User = db.define('user', {
     }
   },
   isAdmin: {
-    type: Sequelize.ENUM(true, false),
-    allowNull: false,
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   email: {
     type: Sequelize.STRING,
