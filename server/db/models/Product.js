@@ -31,7 +31,7 @@ const Product = db.define("product", {
     type: Sequelize.STRING,
   },
   releaseDate: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
   },
   rating: {
     type: Sequelize.DECIMAL(10, 2),
