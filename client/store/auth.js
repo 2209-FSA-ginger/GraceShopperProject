@@ -94,7 +94,7 @@ export const authenticate = createAsyncThunk(
 // }
 
 //INITIAl STATE
-const initialState = null //{username: "", password:""}
+const initialState = {} //{username: "", password:""}
 
 //Create Slice
 const loginSlice = createSlice({

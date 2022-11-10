@@ -19,7 +19,7 @@ import logger from "redux-logger"
 
 const store = configureStore({
   reducer:{
-    user: loginSlice
+    auth: loginSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 })
