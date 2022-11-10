@@ -3,7 +3,7 @@ const {
   models: { Order, OrderProduct, Product, User },
 } = require("../db");
 module.exports = router;
-import { requireAdminToken, requireToken } from "../auth/index";
+const  { requireAdminToken, requireToken } = require("../auth/index");
 
 // GET /api/orders/:userId
 // user auth - TO BE INCLUDED

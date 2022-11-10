@@ -2,9 +2,8 @@ const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
-module.exports = router;
 
-export const requireAdminToken = async (req, res, next) => {
+const requireAdminToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.byToken(token);
@@ -17,7 +16,7 @@ export const requireAdminToken = async (req, res, next) => {
   }
 };
 
-export const requireToken = async (req, res, next) => {
+const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.byToken(token);
@@ -56,3 +55,5 @@ router.get("/me", requireToken, async (req, res, next) => {
     next(ex);
   }
 });
+
+module.exports = {requireAdminToken, requireToken, router}
