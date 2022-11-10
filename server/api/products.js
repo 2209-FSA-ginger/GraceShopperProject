@@ -3,7 +3,6 @@ const {
   models: { Product, User },
 } = require("../db");
 module.exports = router;
-
 import { requireAdminToken } from "../auth/index";
 
 // GET /api/products

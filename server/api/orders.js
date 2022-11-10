@@ -3,11 +3,11 @@ const {
   models: { Order, OrderProduct, Product, User },
 } = require("../db");
 module.exports = router;
-import { requireAdminToken } from "../auth/index";
+import { requireAdminToken, requireToken } from "../auth/index";
 
 // GET /api/orders/:userId
 // user auth - TO BE INCLUDED
-router.get("/:userId", requireAdminToken, async (req, res, next) => {
+router.get("/:userId", requireToken, async (req, res, next) => {
   try {
     const orderHistory = await Order.findAll({
       where: {

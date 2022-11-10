@@ -17,7 +17,7 @@ export const requireAdminToken = async (req, res, next) => {
   }
 };
 
-const requireToken = async (req, res, next) => {
+export const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.byToken(token);
