@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User, CartItem, Order} } = require('../server/db')
+const {db, models: {User, CartItem, Order, Product} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -13,7 +13,7 @@ function createNameOrPassword(info){
   const alphabet = ["a", "b", "c", "d", "e", "f", "g", 
                     "h", "i", "j", "k", "l", "m", "n", "o", "p","q","r","s","t","u","v","w","x","y","z"]
   for (let i = 0; i < 4; i++){
-    const randomnum = Math.floor(Math.random() * (25 - 1 + 0) + 0.0)
+    const randomnum = Math.floor(Math.random() * (25 - 0 + 1))
     if(info === "name" && i === 0 ){
       name += alphabet[randomnum].toUpperCase()
     } else {
@@ -37,15 +37,21 @@ function createEmail(){
   const alphabet = ["a", "b", "c", "d", "e", "f", "g", 
                     "h", "i", "j", "k", "l", "m", "n", "o", "p","q","r","s","t","u","v","w","x","y","z"]
   for (let i = 0; i < 4; i++){
-    const randomnum = Math.floor(Math.random() * (25 - 1 + 0) + 0.0);
+    const randomnum = Math.floor(Math.random() * (25 - 0 + 1));
     name += alphabet[randomnum]
   }
   name += "@gmail.com"
   return name
 }
 
-function createQuantity(){
-  const randomNum = Math.floor(Math.random() * (21))
+function createQuantityOrPrice(info){
+  let randomNum
+  if(info === "quantity"){
+    randomNum = Math.floor(Math.random() * (21))
+  } else if (info === "price") {
+    randomNum = Math.floor(Math.random() * (10000 - 100) + 100)/100
+  }
+  
   return randomNum
 }
 
@@ -71,7 +77,7 @@ function createLocationName(location){
   const alphabet = ["a", "b", "c", "d", "e", "f", "g", 
                     "h", "i", "j", "k", "l", "m", "n", "o", "p","q","r","s","t","u","v","w","x","y","z"]
   for (let i = 0; i < 4; i++){
-    const randomnum = Math.floor(Math.random() * (25 - 1 + 0) + 0.0);
+    const randomnum = Math.floor(Math.random() * (25 - 0 + 1));
     if(i === 0 ){
       name += alphabet[randomnum].toUpperCase()
     } else {
@@ -105,9 +111,25 @@ for(let i = 0; i < 100; i++){
   })
 }
 
+const guests = []
+for(let i = 0; i < 50; i++){
+  guests.push({
+            firstName: createNameOrPassword("name"),
+            lastName: createNameOrPassword("name"),
+            addressLine1: createLocationName("street"),
+            addressLine2: createLocationName("street"),
+            city: createLocationName("city"),
+            state: createLocationName("state"),
+            country: createLocationName("country"),
+            zipcode: createNumberInfo("zipcode"),
+            phone: createNumberInfo("phone"),
+            email: createEmail(),
+            creditCard: createNumberInfo("creditCard")
+  })
+}
 const cartItems = []
 for(let j = 0; j < 500; j++){
-  cartItems.push({quantity: createQuantity()})
+  cartItems.push({quantity: createQuantityOrPrice("quantity")})
 }
 
 async function seed() {
@@ -115,16 +137,16 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
-  await Promise.all(users.map( async (user) => await User.create(user)))
+  await Promise.all(users.map((user) => User.create(user)))
 
   // Creating Cart Items
-  await Promise.all(cartItems.map( async (cartItem) => await CartItem.create(cartItem)))
+  await Promise.all(cartItems.map((cartItem) => CartItem.create(cartItem)))
 
   const allCartItems = await CartItem.findAll()
-  await Promise.all(allCartItems.map(async (cartItem) => await cartItem.setUser(createUserId())
+  await Promise.all(allCartItems.map((cartItem) => cartItem.setUser(createUserId())
   ))
 
-  // Creating Orders
+  // Creating Login Orders
   const orders = users.map( user => {
     return {
             firstName: user.firstName,
@@ -141,16 +163,34 @@ async function seed() {
           }
   })
 
-  await Promise.all(orders.map(async (order) => await Order.create(order)))
+  await Promise.all(orders.map((order) => Order.create(order)))
   const allOrders = await Order.findAll()
   await Promise.all(allOrders.map(async (order) => {
     const user = await User.findOne({
       where: {firstName: order.firstName}
     })
-    await order.setUser(user)
+    return order.setUser(user)
   }))
 
-   
+//Creating Guest Orders
+await Promise.all(guests.map((guest) => Order.create(guest)))
+
+//Creating Order Products (MUST SEED PRODUCTS FIRST)
+// const orderProductsArr = []
+// const everyOrder = await Order.findAll()
+// let index = 1
+// everyOrder.forEach((order) => {
+//   for(let i = 0; i < 3; i++){
+//     orderProductsArr.push(
+//       order.setProduct(Product.findByPk(index), {through : {quantity: createQuantityOrPrice("quantity"), 
+//                                   price: createQuantityOrPrice("price")}})
+//     )
+//     index++
+//   }
+// })
+// await Promise.all(orderProductsArr)
+
+//Creating 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
