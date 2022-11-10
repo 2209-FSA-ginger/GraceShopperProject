@@ -4,6 +4,8 @@ const {
 } = require("../db");
 module.exports = router;
 
+import { requireAdminToken } from "../auth/index";
+
 // GET /api/products
 // No auth
 router.get("/", async (req, res, next) => {
@@ -28,7 +30,7 @@ router.get("/:productId", async (req, res, next) => {
 
 // POST /api/products
 // admin auth - TO BE INCLUDED
-router.post("/", async (req, res, next) => {
+router.post("/", requireAdminToken, async (req, res, next) => {
   try {
     const product = await Product.create(req.body);
     res.status(201).send(product);
@@ -39,7 +41,7 @@ router.post("/", async (req, res, next) => {
 
 // PUT /api/products/:productId
 // admin auth - TO BE INCLUDED
-router.put("/:productId", async (req, res, next) => {
+router.put("/:productId", requireAdminToken, async (req, res, next) => {
   try {
     const product = await Product.update(req.body, {
       where: {
@@ -56,7 +58,7 @@ router.put("/:productId", async (req, res, next) => {
 
 // DELETE /api/products/:productId
 // admin auth - TO BE INCLUDED
-router.delete("/:productId", async (req, res, next) => {
+router.delete("/:productId", requireAdminToken, async (req, res, next) => {
   try {
     await Product.destroy({
       where: {

@@ -2,10 +2,13 @@ const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
+import { requireAdminToken } from "../auth/index";
+
 module.exports = router;
 
 // GET all users -> /api/users
-router.get("/", async (req, res, next) => {
+// admin auth - TO BE INCLUDED
+router.get("/", requireAdminToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though

@@ -4,7 +4,7 @@ const {
 } = require("../db");
 module.exports = router;
 
-const requireAdminToken = async (req, res, next) => {
+export const requireAdminToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.byToken(token);
