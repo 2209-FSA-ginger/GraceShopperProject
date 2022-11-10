@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
+const {router} = require("./auth")
 const app = express()
 module.exports = app
 
@@ -11,7 +12,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 
 // auth and api routes
-app.use('/auth', require('./auth'))
+app.use('/auth', router)
 app.use('/api', require('./api'))
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));

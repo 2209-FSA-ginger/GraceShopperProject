@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
-import { requireAdminToken, requireToken } from "../auth/index";
+const { requireAdminToken, requireToken } =  require("../auth/index");
 
 module.exports = router;
 
