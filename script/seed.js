@@ -316,7 +316,11 @@ async function seed() {
   await Promise.all(
     allOrders.map(async (order) => {
       const user = await User.findOne({
-        where: { firstName: order.firstName },
+        where: {
+          firstName: order.firstName,
+          lastName: order.lastName,
+          email: order.email,
+        },
       });
       return order.setUser(user);
     })
