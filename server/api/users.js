@@ -2,10 +2,13 @@ const router = require("express").Router();
 const {
   models: { User },
 } = require("../db");
+import { requireAdminToken, requireToken } from "../auth/index";
+
 module.exports = router;
 
 // GET all users -> /api/users
-router.get("/", async (req, res, next) => {
+// admin auth - TO BE INCLUDED
+router.get("/", requireAdminToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -20,7 +23,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // GET a single user -> /api/users/:id
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     res.send(user);
@@ -30,7 +33,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // PUT a single user -> /api/users/:id
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     const updatedUser = await user.update(req.body);
@@ -41,7 +44,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // DELETE a single user -> /api/users/:id
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", requireToken, async (req, res, next) => {
   try {
     await User.destroy({
       where: {

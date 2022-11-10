@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Product = db.define("product", {
-  name: {
+  albumId: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
@@ -10,7 +10,39 @@ const Product = db.define("product", {
       notEmpty: true,
     },
   },
-  description: {
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  artist: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  genre: {
+    type: Sequelize.STRING,
+  },
+  style: {
+    type: Sequelize.STRING,
+  },
+  releaseDate: {
+    type: Sequelize.DATE,
+  },
+  rating: {
+    type: Sequelize.DECIMAL(10, 2),
+  },
+  ratingCount: {
+    type: Sequelize.BIGINT,
+  },
+  notes: {
+    type: Sequelize.TEXT,
+  },
+  tracklist: {
     type: Sequelize.TEXT,
   },
   price: {
