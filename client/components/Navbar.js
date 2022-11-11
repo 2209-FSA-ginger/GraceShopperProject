@@ -1,14 +1,19 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
+const Navbar = ({ handleClick, isLoggedIn }) => (
+  <div className="navbar">
+    <Link to="/">
+      <img
+        src="https://cdn.pixabay.com/photo/2021/01/28/22/10/vinyl-record-5959161_1280.jpg"
+        className="brand"
+      />
+    </Link>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div className="logContainer">
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
@@ -16,32 +21,43 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </a>
         </div>
       ) : (
-        <div>
+        <div className="btn-ctr">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/login">
+            <button className="login">Login</button>
+          </Link>
+          <Link to="/signup">
+            <button className="signUp">Sign Up</button>
+          </Link>
         </div>
       )}
     </nav>
-    <hr />
+    <div className="genre-ctr">
+      <a>Hip-Hop</a>
+      <a>Funk/Soul</a>
+      <a>Rock</a>
+      <a>Pop</a>
+      <a>Electronic</a>
+    </div>
+    {/* <hr /> */}
   </div>
-)
+);
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);

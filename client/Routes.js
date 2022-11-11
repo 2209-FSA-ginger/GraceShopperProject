@@ -9,8 +9,8 @@ import AllMusic from "./components/AllMusic";
 const AllRoutes = () => {
   return (
     <Routes>
-      {/* <Route path="/" element={<h1>hello</h1>}/> */}
-      <Route path="/" element={<AllMusic />} />
+      <Route path="/" element={<div></div>} />
+      <Route path="/all" element={<AllMusic />} />
       <Route path="/login" element={<SignInPage />} />
       <Route path="/signup" element={<SignInPage />} />
       <Route path="/home" element={<SignInPage />} />
