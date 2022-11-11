@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setProducts, fetchProducts } from "../store/products";
 
 const AllMusic = () => {
-  const musicList = useSelector(setProducts);
+  const { payload } = useSelector(setProducts);
   const dispatch = useDispatch();
   //const postStatus = useSelector((state) => state.products.status);
 
@@ -17,8 +17,8 @@ const AllMusic = () => {
     dispatch(fetchProducts());
   }, []);
 
-  const albums = musicList.payload.products;
-  console.log("ALBUMS", albums);
+  const albums = payload.products;
+  //console.log("ALBUMS", albums);
   return (
     <div className="musicList">
       <h1>Music List</h1>
