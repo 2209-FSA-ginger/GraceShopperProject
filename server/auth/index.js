@@ -6,7 +6,7 @@ const {
 const requireAdminToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    const user = await User.byToken(token);
+    const user = await User.findByToken(token);
     if (user.isAdmin) {
       req.user = user;
       next();
@@ -19,7 +19,7 @@ const requireAdminToken = async (req, res, next) => {
 const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    const user = await User.byToken(token);
+    const user = await User.findByToken(token);
     req.user = user;
     next();
   } catch (error) {
