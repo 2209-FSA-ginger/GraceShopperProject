@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useDispatch } from "react-redux"
-import {authenticate} from '../store'
+import {authenticate} from '../store/auth'
 
 /**
  * COMPONENT
@@ -22,10 +22,15 @@ const signUp = () => {
 
 const handleSubmit = evt => {
     evt.preventDefault()
-    const formName = evt.target.name
-    const username = evt.target.username.value
-    const password = evt.target.password.value
-    dispatch(authenticate(username, password, formName))
+    const submitForm = {
+      firstName: evt.target.firstName ? evt.target.firstName.value : "" ,
+      lastName: evt.target.lastName ? evt.target.lastName.value : "",
+      username: evt.target.username.value,
+      password: evt.target.password.value,
+      email: evt.target.email ? evt.target.email.value : "",
+      method: getForm.name
+    }
+    dispatch(authenticate(submitForm))
   }
 
   return (
