@@ -29,22 +29,6 @@ router.get("/", requireAdminToken, async (req, res, next) => {
   }
 });
 
-// GET a single user -> /api/users/:userId
-router.get("/:userId", requireToken, async (req, res, next) => {
-  try {
-    const user = await User.findByPk(req.params.userId);
-    if (user.password === req.user.password) {
-      res.send(user);
-    } else {
-      const error = Error("Unauthorized User");
-      error.status = 401;
-      throw error;
-    }
-  } catch (err) {
-    next(err);
-  }
-});
-
 // PUT a single user -> /api/users/:userId
 router.put("/:userId", requireToken, async (req, res, next) => {
   try {
