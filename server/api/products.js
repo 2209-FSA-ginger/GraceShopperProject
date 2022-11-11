@@ -28,7 +28,7 @@ router.get("/:productId", async (req, res, next) => {
 });
 
 // POST /api/products
-// admin auth - TO BE INCLUDED
+// admin auth 
 router.post("/", requireAdminToken, async (req, res, next) => {
   try {
     const product = await Product.create(req.body);
@@ -39,7 +39,7 @@ router.post("/", requireAdminToken, async (req, res, next) => {
 });
 
 // PUT /api/products/:productId
-// admin auth - TO BE INCLUDED
+// admin auth 
 router.put("/:productId", requireAdminToken, async (req, res, next) => {
   try {
     const product = await Product.update(req.body, {
@@ -56,7 +56,7 @@ router.put("/:productId", requireAdminToken, async (req, res, next) => {
 });
 
 // DELETE /api/products/:productId
-// admin auth - TO BE INCLUDED
+// admin auth
 router.delete("/:productId", requireAdminToken, async (req, res, next) => {
   try {
     await Product.destroy({
