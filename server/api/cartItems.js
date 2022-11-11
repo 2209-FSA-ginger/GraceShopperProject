@@ -46,16 +46,9 @@ router.put("/:cartId", requireToken, async (req, res, next) => {
 //POST /api/cartItems
 router.post("/", requireToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.body.userId);
-    if (user.password === req.user.password) {
-      const newCartItem = req.body;
-      const newItem = await CartItem.create(newCartItem);
-      res.status(201).send(newItem);
-    } else {
-      const error = Error("Unauthorized User");
-      error.status = 401;
-      throw error;
-    }
+    const newCartItem = { ...req.body, userId: req.user.id };
+    const newItem = await CartItem.create(newCartItem);
+    res.status(201).send(newItem);
   } catch (err) {
     next(err);
   }
