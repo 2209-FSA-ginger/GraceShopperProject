@@ -56,4 +56,4 @@ router.get("/me", requireToken, async (req, res, next) => {
   }
 });
 
-module.exports = {requireAdminToken, requireToken, router}
+module.exports = { requireAdminToken, requireToken, router };
