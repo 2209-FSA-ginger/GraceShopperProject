@@ -61,14 +61,16 @@ export const me = createAsyncThunk(
 
 export const authenticate = createAsyncThunk(
   "users/authenticate",
-  async (username, password, method, dispatch, {rejectWithValue}) => {
-    try{
-      const res = await axios.post(`/auth/${method}`, {username, password})
+  async (submitInfo, {dispatch}) => {
+      const {firstName, lastName, email, username, password, method} = submitInfo
+      let res
+      if(method === "signup"){
+        res = await axios.post(`/auth/signup`, {firstName, lastName, username, password, email})
+      } else if (method === "login"){
+        res = await axios.post(`/auth/login`, {username, password})
+      }
       window.localStorage.setItem(TOKEN, res.data.token)
       dispatch(me())
-    } catch (authError){
-      return rejectWithValue(authError)
-    }
   }
 )
 
@@ -103,7 +105,7 @@ const loginSlice = createSlice({
   reducers: {
        logout: () => {
            window.localStorage.removeItem("token")
-           return null
+           return {}
        }
   },
   extraReducers: (builder) => {
