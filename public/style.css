@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  margin: 0px;
 }
 
 a {
@@ -12,10 +13,77 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
 }
+
+#homepageBackground{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(114, 148, 235);
+  height: 700px
+}
+
+#homepageBanner{
+  background-color: rgb(230, 124, 230);
+  height: 150px;
+  width: 1434px;
+}
+
+#homepagePanels{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#panelTitle{
+  text-align: center
+}
+
+.homepagePanel{
+  height: 400px;
+  width: 300px;
+  background-color: rgb(255, 165, 0);
+}
+
+.homepagePanel > div {
+  text-align: center;
+}
+
+.topAlbum{
+  height: 300px;
+  width: 300px;
+}
+
+#navbarBackground{
+  display: flex;
+  flex-direction: column;
+  background-color: #ee858c;
+}
+
+#spaceBetweenNavAndRoutes{
+  background-color: yellow
+}
+
+#mainNav{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#navMinitags {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#navMinitags > * {
+  font-size: 15px;
+}
+
+#storeName{
+  margin: 0px;
+}
+
+
