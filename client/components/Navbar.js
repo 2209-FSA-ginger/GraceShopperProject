@@ -1,47 +1,59 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {useSelector, useDispatch} from 'react-redux'
+import {Link, useNavigate} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+const Navbar = () => {
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.auth.id
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector((state) => state.auth)
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    dispatch(logout())
+    navigate("/")
   }
+
+  return(
+    <div id="navbarBackground">
+        <nav>
+          <div id="mainNav">
+            <span>
+              <h3 id="storeName">FSA Music Store</h3>
+            </span>
+            <span>
+              <select> 
+                <option>Filter</option>
+              </select>
+              <input/>
+              <button type="button"> Search </button>
+            </span>
+              {Object.keys(isLoggedIn).length !== 0 ? (
+                <span>
+                  {/* The navbar will show these links after you log in */}
+                  <Link to="/home">MyProfile</Link>
+                  <a href="#" onClick={handleClick}>
+                    Logout
+                  </a>
+                </span>
+              ) : (
+                <span>
+                  {/* The navbar will show these links before you log in */}
+                  <Link to="/login">Sign In</Link>
+                </span>
+              )}
+          </div>
+          <div id="navMinitags">
+            <Link to="/allmusic"> All Music </Link>
+            <span>genre1</span>
+            <span>genre2</span>
+            <span>genre3</span>
+            <span>genre4</span>
+            <span>genre5</span>
+          </div>
+        </nav>
+      </div>
+  )
 }
 
-const mapDispatch = dispatch => {
-  return {
-    handleClick() {
-      dispatch(logout())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(Navbar)
+export default Navbar
