@@ -11,15 +11,11 @@ const topAlbums= useSelector( state => state.products)
 useEffect(() => {
     dispatch(fetchProducts({
         limit: 3, 
-        offset: null,
-        filterCategory: null,
-        filter: null,
         order: "rating",
         scale: "DESC"
     }))
 }, [])
 
-console.log(topAlbums)
 return(
    <div id="homepageBackground">
         <div id="homepageBanner"></div>
@@ -28,8 +24,8 @@ return(
         </div>
             {topAlbums ? 
             <div id="homepagePanels">
-               {topAlbums.map( album => (
-                <span className="homepagePanel">
+               {topAlbums.map( (album, index) => (
+                <span className="homepagePanel" key={index}>
                 <img className="topAlbum" src={album.imageURL}/>
                 <div>
                     Title: {album.title}
