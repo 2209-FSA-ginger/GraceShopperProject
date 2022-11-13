@@ -14,17 +14,17 @@ router.get("/", async (req, res, next) => {
       const filterObject = {}
 
       //add page limit
-      if(req.query.limit !== "null") filterObject.limit = req.query.limit
+      if(req.query.limit) filterObject.limit = req.query.limit
       
       //add offset
-      if(req.query.offset !== "null") filterObject.offset = req.query.offset
+      if(req.query.offset) filterObject.offset = req.query.offset
 
       //filterCategory and filter (filterCategory refers to the property you want to filter eg. genre, 
       //and filter is how you want to filter the category eg. pop)
-      if(req.query.filterCategory !== "null" && req.query.filter !== "null") filterObject.where = {[req.query.filterCategory] : [req.query.filter]}
+      if(req.query.filterCategory && req.query.filter) filterObject.where = {[req.query.filterCategory] : [req.query.filter]}
 
       //order and scale (order refers to column name, scale refers to ASC or DESC )
-      if(req.query.order !=="null" && req.query.scale !="null") filterObject.order = [[req.query.order, req.query.scale]]
+      if(req.query.order && req.query.scale) filterObject.order = [[req.query.order, req.query.scale]]
 
       products = await Product.findAll(filterObject);
     } else {
