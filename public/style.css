@@ -23,7 +23,7 @@ h1 {
 
 .container {
   position: sticky;
-  top: 12em;
+  top: 13em;
   left: 0;
   width: 100%;
   z-index: 9;
@@ -31,8 +31,8 @@ h1 {
 select {
   width: 200px;
   padding: 20px;
-  border: 0 !important;
-  /* background-color: lightblue; */
+  border: 1;
+  background-color: #fffffe;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -55,22 +55,21 @@ select {
   float: left;
   margin-top: 1em;
 }
+.navbar input {
+  width: 30%;
+  position: relative;
+  display: flex;
+  border: 3px solid #8bd3dd;
+  padding: 5px;
+  height: 20px;
+  /* border-radius: 5px 0 0 5px; */
+  outline: none;
+  color: #9dbfaf;
+}
 
 .btn-ctr {
   display: flex;
   justify-content: flex-end;
-}
-
-.all-btn {
-  /* cursor: pointer;
-  border: 0;
-  border-radius: 4px;
-  font-weight: 600;
-  margin: 0; */
-  width: 200px;
-  padding: 10px 0;
-  /* box-shadow: 0 0 1px;
-  transition: 0.3s; */
 }
 
 button {
@@ -103,10 +102,10 @@ button:hover {
 }
 
 .logContainer {
+  display: flex;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  display: flex;
   text-align: center;
 }
 

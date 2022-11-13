@@ -11,6 +11,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         className="brand"
       />
     </Link>
+    <input
+      className="search_input"
+      type="text"
+      placeholder="Search for artists & releases..."
+    />
     <nav>
       {isLoggedIn ? (
         <div className="logContainer">
