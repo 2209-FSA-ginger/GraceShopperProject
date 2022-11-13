@@ -30,11 +30,15 @@ const Navbar = () => {
             </span>
               {Object.keys(isLoggedIn).length !== 0 ? (
                 <span>
-                  {/* The navbar will show these links after you log in */}
-                  <Link to="/home">MyProfile</Link>
-                  <a href="#" onClick={handleClick}>
-                    Logout
-                  </a>
+                  <span className="profileNav">
+                    {/* The navbar will show these links after you log in */}
+                    <Link to="/home">MyProfile</Link>
+                  </span>
+                  <span className="profileNav">
+                    <a href="#" onClick={handleClick}>
+                      Logout
+                    </a>
+                  </span>
                 </span>
               ) : (
                 <span>

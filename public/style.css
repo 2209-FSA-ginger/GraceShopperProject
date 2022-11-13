@@ -73,6 +73,10 @@ form div {
   justify-content: space-evenly;
 }
 
+.profileNav{
+  margin: 10px
+}
+
 #navMinitags {
   display: flex;
   justify-content: space-evenly;
