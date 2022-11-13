@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+
   background-color: #f3d2c1;
   color: #001858;
 }
@@ -14,7 +15,6 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
 }
 
 h1 {
@@ -151,3 +151,42 @@ form div {
   width: 300px;
   height: 300px;
 }
+
+#homepageBackground{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(114, 148, 235);
+  height: 700px
+}
+
+#homepageBanner{
+  background-color: rgb(230, 124, 230);
+  height: 150px;
+  width: 1434px;
+}
+
+#homepagePanels{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#panelTitle{
+  text-align: center
+}
+
+.homepagePanel{
+  height: 400px;
+  width: 300px;
+  background-color: rgb(255, 165, 0);
+}
+
+.homepagePanel > div {
+  text-align: center;
+}
+
+.topAlbum{
+  height: 300px;
+  width: 300px;
+}
+

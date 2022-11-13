@@ -3,31 +3,38 @@ const {
   models: { Order, OrderProduct, Product, User },
 } = require("../db");
 module.exports = router;
-const  { requireAdminToken, requireToken } = require("../auth/index");
+const { requireAdminToken, requireToken } = require("../auth/index");
 
 // GET /api/orders/:userId
-// user auth - TO BE INCLUDED
+// user auth
 router.get("/:userId", requireToken, async (req, res, next) => {
   try {
-    const orderHistory = await Order.findAll({
-      where: {
-        userId: req.params.userId,
-      },
-      include: {
-        model: OrderProduct,
-        include: {
-          model: Product,
+    const user = await User.findByPk(req.params.userId);
+    if (user.password === req.user.password) {
+      const orderHistory = await Order.findAll({
+        where: {
+          userId: req.params.userId,
         },
-      },
-    });
-    res.send(orderHistory);
+        include: {
+          model: OrderProduct,
+          include: {
+            model: Product,
+          },
+        },
+      });
+      res.send(orderHistory);
+    } else {
+      const error = Error("Unauthorized User");
+      error.status = 401;
+      throw error;
+    }
   } catch (err) {
     next(err);
   }
 });
 
 // GET /api/orders
-// admin auth - TO BE INCLUDED
+// admin auth
 router.get("/", requireAdminToken, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -45,19 +52,22 @@ router.get("/", requireAdminToken, async (req, res, next) => {
 });
 
 // POST /api/orders
-// no auth?? potentially needed
+// no auth?? potentially needed but want guests to be able to post here
 // req.body requires obj {order as {}, products as []}
 router.post("/", async (req, res, next) => {
   try {
     const order = await Order.create(req.body.order);
     const products = req.body.products;
-    for (let i = 0; i < products.length; i++) {
-      order.addProduct({
-        productId: products[i].id,
-        quantity: products[i].quantity,
-        price: products[i].price,
-      });
-    }
+    await Promise.all(
+      products.map((product) => {
+        return OrderProduct.create({
+          orderId: order.id,
+          productId: product.productId,
+          quantity: product.quantity,
+          price: product.price,
+        });
+      })
+    );
     res.send(order);
   } catch (err) {
     next(err);

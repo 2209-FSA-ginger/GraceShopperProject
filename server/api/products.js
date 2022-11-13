@@ -9,7 +9,27 @@ const { requireAdminToken } =  require("../auth/index");
 // No auth
 router.get("/", async (req, res, next) => {
   try {
-    const products = await Product.findAll();
+    let products
+    if(req.query){
+      const filterObject = {}
+
+      //add page limit
+      if(req.query.limit !== "null") filterObject.limit = req.query.limit
+      
+      //add offset
+      if(req.query.offset !== "null") filterObject.offset = req.query.offset
+
+      //filterCategory and filter (filterCategory refers to the property you want to filter eg. genre, 
+      //and filter is how you want to filter the category eg. pop)
+      if(req.query.filterCategory !== "null" && req.query.filter !== "null") filterObject.where = {[req.query.filterCategory] : [req.query.filter]}
+
+      //order and scale (order refers to column name, scale refers to ASC or DESC )
+      if(req.query.order !=="null" && req.query.scale !="null") filterObject.order = [[req.query.order, req.query.scale]]
+
+      products = await Product.findAll(filterObject);
+    } else {
+      products = await Product.findAll();
+    }
     res.send(products);
   } catch (err) {
     next(err);
@@ -28,7 +48,7 @@ router.get("/:productId", async (req, res, next) => {
 });
 
 // POST /api/products
-// admin auth - TO BE INCLUDED
+// admin auth 
 router.post("/", requireAdminToken, async (req, res, next) => {
   try {
     const product = await Product.create(req.body);
@@ -39,7 +59,7 @@ router.post("/", requireAdminToken, async (req, res, next) => {
 });
 
 // PUT /api/products/:productId
-// admin auth - TO BE INCLUDED
+// admin auth 
 router.put("/:productId", requireAdminToken, async (req, res, next) => {
   try {
     const product = await Product.update(req.body, {
@@ -56,7 +76,7 @@ router.put("/:productId", requireAdminToken, async (req, res, next) => {
 });
 
 // DELETE /api/products/:productId
-// admin auth - TO BE INCLUDED
+// admin auth
 router.delete("/:productId", requireAdminToken, async (req, res, next) => {
   try {
     await Product.destroy({

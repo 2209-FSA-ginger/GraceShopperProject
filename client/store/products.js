@@ -10,9 +10,15 @@ import axios from "axios";
 // Async Think
 export const fetchProducts = createAsyncThunk(
   "/products/fetchProducts",
-  async () => {
+  async (productInfo) => {
     try {
-      const response = await axios.get("/api/products");
+      let response
+      if(productInfo){
+        const {limit, offset, filterCategory, filter, order, scale} = productInfo
+        response = await axios.get(`/api/products?limit=${limit}&offset=${offset}&filterCategory=${filterCategory}&filter=${filter}&order=${order}&scale=${scale}`);
+      } else {
+        response = await axios.get("/api/products");
+      }
       return response.data;
     } catch (err) {
       console.log(err);

@@ -15,9 +15,9 @@ const SignInPage = () => {
     return(
         <div>
         {Object.keys(isLoggedIn).length === 0  ? (
-            <AuthForm method={"login"} display={"Login"}/>
+            <AuthForm/>
         ) : (
-          <Home/>
+          <Navigate to="/home"/>
         )}
       </div>
     )
