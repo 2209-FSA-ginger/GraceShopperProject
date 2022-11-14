@@ -17,14 +17,27 @@ export const fetchSingleProduct = createAsyncThunk(
 // Create Slice
 const productSlice = createSlice({
   name: "product",
-  initialState: {},
-
+  initialState: {
+    album: {},
+    tracklist: [],
+  },
+  reducers: {
+    setTracklist: (state, action) => {
+      state.album.tracklist
+        ? (state.tracklist = state.album.tracklist.split(","))
+        : (state.tracklist = []);
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSingleProduct.pending, (state, action) => state)
-      .addCase(fetchSingleProduct.fulfilled, (state, action) => action.payload)
-      .addCase(fetchSingleProduct.rejected, (state, action) => state);
+      // .addCase(fetchSingleProduct.pending, (state, action) => state)
+      .addCase(fetchSingleProduct.fulfilled, (state, action) => {
+        state.album = action.payload;
+      });
+    // .addCase(fetchSingleProduct.rejected, (state, action) => state);
   }, // you can add more .addCase as you need
 });
 
 export default productSlice.reducer;
+const setTracklist = productSlice.actions.setTracklist;
+export { setTracklist };

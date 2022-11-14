@@ -5,7 +5,8 @@ import AllMusic from "./components/AllMusic";
 import Home from "./components/Home";
 import Homepage from "./components/Homepage";
 import SingleAlbum from "./components/SingleAlbum";
-import Cart from "./components/Cart"
+import Cart from "./components/Cart";
+import EditProfile from "./components/EditProfile";
 
 /**
  * COMPONENT
@@ -18,8 +19,9 @@ const AllRoutes = () => {
       <Route path="/allmusic" element={<AllMusic />} />
       <Route path="/login" element={<SignInPage />} />
       <Route path="/signup" element={<SignInPage />} />
-      <Route path="/home" element={<Home/>} />
-      <Route path="/cart" element={<Cart/>} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/editprofile" element={<EditProfile />} />
+      <Route path="/cart" element={<Cart />} />
     </Routes>
   );
 };
