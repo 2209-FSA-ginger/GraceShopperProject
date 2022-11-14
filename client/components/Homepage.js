@@ -1,5 +1,6 @@
 import React, {useEffect} from "react"
 import {useSelector, useDispatch} from "react-redux"
+import { Link } from "react-router-dom"
 import {fetchProducts} from "../store/products"
 
 
@@ -25,18 +26,20 @@ return(
             {topAlbums ? 
             <div id="homepagePanels">
                {topAlbums.map( (album, index) => (
-                <span className="homepagePanel" key={index}>
-                <img className="topAlbum" src={album.imageURL}/>
-                <div>
-                    Title: {album.title}
-                </div>
-                <div>
-                    Artist: {album.artist}
-                </div>
-                <div>
-                    Genre: {album.genre}
-                </div>
-                </span>))}
+                <div className="homepagePanel" key={index}>
+                    <Link to={`/allmusic/${album.id}`}>
+                        <img className="topAlbum" src={album.imageURL}/>
+                        <div>
+                            Title: {album.title}
+                        </div>
+                        <div>
+                            Artist: {album.artist}
+                        </div>
+                        <div>
+                            Genre: {album.genre}
+                        </div>
+                    </Link>
+                </div>))}
             </div> :
                <h1> Loading Albums... </h1>
                }
