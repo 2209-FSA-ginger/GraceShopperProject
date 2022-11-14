@@ -8,7 +8,6 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <FilterColumn />
       <AllRoutes />
     </div>
   );
