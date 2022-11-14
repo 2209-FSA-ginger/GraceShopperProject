@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate, useLocation, createSearchParams, Link } from "react-router-dom"
 import { fetchProducts } from "../store/products";
+import { Link } from "react-router-dom";
 
 
 const AllMusic = () => {
@@ -11,7 +12,6 @@ const AllMusic = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   
-
   const [searchParams] = useSearchParams() //can only hooks in body of a function, not inside another hook!!! 
   const searchObject = Object.fromEntries([...searchParams])
 

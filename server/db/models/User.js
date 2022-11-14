@@ -6,28 +6,28 @@ const axios = require("axios");
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('user', {
+const User = db.define("user", {
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   username: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
-    validate:{
-      notEmpty: true
-    }
+    validate: {
+      notEmpty: true,
+    },
   },
   password: {
     type: Sequelize.STRING,
@@ -35,7 +35,7 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       notEmpty: true,
-    }
+    },
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
@@ -44,13 +44,13 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate: {
       notEmpty: true,
-      isEmail: true
-    }
-  }
-})
-
+      isEmail: true,
+    },
+  },
+});
 
 module.exports = User;
 

@@ -1,13 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Initial State
-// const initialState = {
-//   products: [],
-//   status: "idle",
-// };
-
-// Async Think
+// Async Thunk
 export const fetchProducts = createAsyncThunk(
   "/products/fetchProducts",
   async (productInfo) => {
@@ -28,28 +22,28 @@ export const fetchProducts = createAsyncThunk(
           endpoint += `&limit=${limit}`
         } 
 
-        if(filterCategory){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `filterCategory=${filterCategory}`:
-            endpoint += `&filterCategory=${filterCategory}`
+        if (filterCategory) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `filterCategory=${filterCategory}`)
+            : (endpoint += `&filterCategory=${filterCategory}`);
         }
 
-        if(filter){
-          endpoint[endpoint.length - 1] === "?" ?
-          endpoint += `filter=${filter}`:
-          endpoint += `&filter=${filter}`
+        if (filter) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `filter=${filter}`)
+            : (endpoint += `&filter=${filter}`);
         }
 
-        if(order){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `order=${order}`:
-            endpoint += `&order=${order}`
+        if (order) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `order=${order}`)
+            : (endpoint += `&order=${order}`);
         }
 
-        if(scale){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `scale=${scale}`:
-            endpoint += `&scale=${scale}`
+        if (scale) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `scale=${scale}`)
+            : (endpoint += `&scale=${scale}`);
         }
 
         response = await axios.get(endpoint);
@@ -67,7 +61,7 @@ export const fetchProducts = createAsyncThunk(
 // Create Slice
 const productsSlice = createSlice({
   name: "products",
-  initialState: [], //arr[100]
+  initialState: [],
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state, action) => state)
@@ -77,3 +71,4 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
+
