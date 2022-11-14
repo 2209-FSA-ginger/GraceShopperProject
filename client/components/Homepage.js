@@ -27,7 +27,7 @@ return(
             <div id="homepagePanels">
                {topAlbums.map( (album, index) => (
                 <div className="homepagePanel" key={index}>
-                    <Link to={`/album/${album.id}`}>
+                    <Link to={`/allmusic/${album.id}`}>
                         <img className="topAlbum" src={album.imageURL}/>
                         <div>
                             Title: {album.title}

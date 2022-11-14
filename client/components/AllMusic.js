@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate, useLocation, createSearchParams, Link } from "react-router-dom"
 import { fetchProducts } from "../store/products";
-import { Link } from "react-router-dom";
 
 
 const AllMusic = () => {
@@ -26,7 +25,7 @@ const AllMusic = () => {
         searchObject.page = Number(searchObject.page) - 1
       }
       navigate({
-        pathname: "/allMusic",
+        pathname: "/allmusic",
         search: `?${createSearchParams(searchObject)}`
       })
       setPagePlaceHolder( prevState => prevState += 1 )
@@ -39,7 +38,7 @@ const AllMusic = () => {
       allAlbums.map((album) => {
         return (
           <ul className="album" key={album.id}>
-            <Link to={`/album/${album.id}`}>
+            <Link to={`/allmusic/${album.id}`}>
             <img id="album-img" src={album.imageURL} />
             <div className="album-text">
               <h3 id="album-title">{album.title}</h3>
