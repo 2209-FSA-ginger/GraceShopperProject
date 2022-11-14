@@ -74,6 +74,7 @@ const Navbar = () => {
       )}
     </div>
     <div className="genre-ctr">
+      <Link to="/allmusic"> All Music </Link>
       <Link to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Hip Hop" state={{query: "Hip Hop"}}>Hip-Hop</Link>
       <Link to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Funk / Soul" state={{query: "Funk / Soul"}}>Funk/Soul</Link>
       <Link to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Rock" state={{query: "Rock"}}>Rock</Link>
