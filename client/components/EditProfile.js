@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { me } from "../store";
 
-/**
- * COMPONENT
- */
-export const Home = () => {
+export const EditProfile = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -19,6 +16,15 @@ export const Home = () => {
       {Object.keys(auth).length !== 0 ? (
         <div>
           <h3>Welcome, {auth.username}</h3>
+          <h2>Edit Profile</h2>
+          <ul>
+            <div>
+              <label for="firstName">First Name:</label>
+              <input type="text" id="firstName" name="firstName"></input>
+              <label for="lastName">Last Name:</label>
+              <input type="text" id="lastName" name="lastName"></input>
+            </div>
+          </ul>
         </div>
       ) : (
         <div>
@@ -30,4 +36,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default EditProfile;
