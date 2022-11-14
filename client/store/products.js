@@ -14,19 +14,19 @@ export const fetchProducts = createAsyncThunk(
     try {
       let response
       let endpoint = "/api/products"
-      if(productInfo){
+      if(Object.keys(productInfo).length !== 0){
         endpoint += "?"
-        const {limit, offset, filterCategory, filter, order, scale} = productInfo
+        const {page, limit, filterCategory, filter, order, scale} = productInfo
+        
+        if(page){
+          endpoint += `page=${page}`
+        }
 
         if(limit){
-            endpoint += `limit=${limit}`
-        } 
-
-        if(offset){
           endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `offset=${offset}`:
-            endpoint += `&offset=${offset}`
-        }
+          endpoint += `limit=${limit}`:
+          endpoint += `&limit=${limit}`
+        } 
 
         if(filterCategory){
           endpoint[endpoint.length - 1] === "?" ?
@@ -56,6 +56,7 @@ export const fetchProducts = createAsyncThunk(
       } else {
         response = await axios.get(endpoint);
       }
+      console.log(response)
       return response.data;
     } catch (err) {
       console.log(err);
@@ -66,12 +67,7 @@ export const fetchProducts = createAsyncThunk(
 // Create Slice
 const productsSlice = createSlice({
   name: "products",
-  initialState: [],
-  reducers: {
-    setProducts: (state, action) => {
-      return action.payload;
-    },
-  },
+  initialState: [], //arr[100]
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state, action) => state)
@@ -81,5 +77,3 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-const setProducts = productsSlice.actions.setProducts;
-export { setProducts };

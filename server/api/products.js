@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const Sequelize = require("sequelize")
 const {
   models: { Product, User },
 } = require("../db");
@@ -17,11 +18,25 @@ router.get("/", async (req, res, next) => {
       if(req.query.limit) filterObject.limit = req.query.limit
       
       //add offset
-      if(req.query.offset) filterObject.offset = req.query.offset
+      if(req.query.page) filterObject.offset = (req.query.page - 1) * 3
 
       //filterCategory and filter (filterCategory refers to the property you want to filter eg. genre, 
       //and filter is how you want to filter the category eg. pop)
-      if(req.query.filterCategory && req.query.filter) filterObject.where = {[req.query.filterCategory] : [req.query.filter]}
+      if(req.query.filterCategory && req.query.filter) {
+        if(req.query.filterCategory === "all"){
+          let modelColumns = []
+          for(let keys in Product.rawAttributes){
+            if(Product.rawAttributes[keys].type.key === "STRING"){
+              modelColumns.push({[keys]:{ [Sequelize.Op.substring]: req.query.filter}})
+            }
+          }
+          filterObject.where = {[Sequelize.Op.or]: modelColumns}
+        } else {
+          filterObject.where = {[req.query.filterCategory] : {
+            [Sequelize.Op.substring] : req.query.filter
+          }}
+        }
+      } 
 
       //order and scale (order refers to column name, scale refers to ASC or DESC )
       if(req.query.order && req.query.scale) filterObject.order = [[req.query.order, req.query.scale]]
@@ -30,6 +45,7 @@ router.get("/", async (req, res, next) => {
     } else {
       products = await Product.findAll();
     }
+
     res.send(products);
   } catch (err) {
     next(err);
