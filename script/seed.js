@@ -235,16 +235,19 @@ async function seed() {
     },
   };
 
-  const url =
-    "https://api.discogs.com/database/search?type=release&format=vinyl&per_page=100&page=1&sort=have";
-  const { data } = await axios.get(url, config);
+  const apiUrl = (page) => {
+    return `https://api.discogs.com/database/search?type=release&format=vinyl&per_page=100&page=${page}&sort=have`;
+  };
+  let albumList = [];
+  for (let i = 1; i < 6; i++) {
+    const { data } = await axios.get(apiUrl(i), config);
+    albumList = [...albumList, ...data.results];
+  }
 
+  //console.log(albumList);
   const albumData = [];
-  for (let i = 0; i < data.results.length; i++) {
-    const { data: album } = await axios.get(
-      data.results[i].resource_url,
-      config
-    );
+  for (let i = 0; i < albumList.length; i++) {
+    const { data: album } = await axios.get(albumList[i].resource_url, config);
     albumData.push(album);
     await delay(1050);
   }

@@ -38,16 +38,19 @@ export const addItemUser = createAsyncThunk(
   async ({ productId, quantity }, { dispatch }) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      const item = await axios.post("/api/cartItems", {
-        headers: {
-          authorization: token,
-        },
-        body: {
+      const item = await axios.post(
+        "/api/cartItems",
+        {
           productId,
           quantity,
         },
-      });
-      dispatch(fetchCartUser());
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      await dispatch(fetchCartUser());
     } catch (err) {
       console.log(err);
     }
@@ -68,15 +71,18 @@ export const updateQuantityUser = createAsyncThunk(
   async ({ cartId, quantity }, { dispatch }) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      const item = await axios.put(`/api/cartItems/${cartId}`, {
-        headers: {
-          authorization: token,
-        },
-        body: {
+      const item = await axios.put(
+        `/api/cartItems/${cartId}`,
+        {
           quantity,
         },
-      });
-      dispatch(fetchCartUser());
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      await dispatch(fetchCartUser());
     } catch (err) {
       console.log(err);
     }
@@ -102,7 +108,7 @@ export const deleteItemUser = createAsyncThunk(
           authorization: token,
         },
       });
-      dispatch(fetchCartUser());
+      await dispatch(fetchCartUser());
     } catch (err) {
       console.log(err);
     }
@@ -128,7 +134,7 @@ export const clearCartUser = createAsyncThunk(
           authorization: token,
         },
       });
-      dispatch(fetchCartUser());
+      await dispatch(fetchCartUser());
     } catch (err) {
       console.log(err);
     }
@@ -212,14 +218,26 @@ const cartSlice = createSlice({
       .addCase(addItemUser.pending, (state, action) => {
         state.isLoading = true;
       })
+      .addCase(addItemUser.rejected, (state, action) => {
+        state.isLoading = false;
+      })
       .addCase(updateQuantityUser.pending, (state, action) => {
         state.isLoading = true;
+      })
+      .addCase(updateQuantityUser.rejected, (state, action) => {
+        state.isLoading = false;
       })
       .addCase(deleteItemUser.pending, (state, action) => {
         state.isLoading = true;
       })
+      .addCase(deleteItemUser.rejected, (state, action) => {
+        state.isLoading = false;
+      })
       .addCase(clearCartUser.pending, (state, action) => {
         state.isLoading = true;
+      })
+      .addCase(clearCartUser.rejected, (state, action) => {
+        state.isLoading = false;
       });
   },
 });

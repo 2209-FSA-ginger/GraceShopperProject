@@ -16,11 +16,23 @@ import {
 
 const CartItem = (props) => {
   const { cartItem } = props;
+  const dispatch = useDispatch();
 
   const [formQuantity, setFormQuantity] = useState(cartItem.quantity);
 
+  const changeHandler = (evt) => {
+    setFormQuantity(evt.target.value);
+  };
+
+  const submitHandler = (evt) => {
+    evt.preventDefault();
+    dispatch(
+      updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
+    );
+  };
+
   return (
-    <div className="cartItem" key={cartItem.id}>
+    <div className="cartItem">
       <img id="cartItem-img" src={cartItem.product.imageURL} />
       <div className="cartItem-text">
         <h4 id="cartItem-title">{cartItem.product.title}</h4>
@@ -38,19 +50,14 @@ const CartItem = (props) => {
           Remove Item
         </button>
         <div>
-          <form
-            onSubmit={(evt) => {
-              evt.preventDefault();
-              console.log(evt.target);
-              //dispatch(updateQuantityUser(evt.target.value));   /need to set up modularized cart items with local state for forms
-            }}
-          >
+          <form onSubmit={submitHandler}>
             <label htmlFor="quantity">Update Quantity:</label>
             <input
               type="number"
               name="quantity"
               step="1"
-              defaultValue={cartItem.quantity}
+              value={formQuantity}
+              onChange={changeHandler}
             />
             <input type="submit" />
           </form>
