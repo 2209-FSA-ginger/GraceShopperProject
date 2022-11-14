@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Homepage from "./components/Homepage";
 import SingleAlbum from "./components/SingleAlbum";
 import Cart from "./components/Cart"
+import Checkout from "./components/Checkout"
 
 /**
  * COMPONENT
@@ -20,6 +21,7 @@ const AllRoutes = () => {
       <Route path="/signup" element={<SignInPage />} />
       <Route path="/home" element={<Home/>} />
       <Route path="/cart" element={<Cart/>} />
+      <Route path="/checkout" element={<Checkout/>}/>
     </Routes>
   );
 };

@@ -50,6 +50,28 @@ const User = db.define("user", {
       isEmail: true,
     },
   },
+  phone: {
+    type: Sequelize.BIGINT,
+  },
+  addressLine1: {
+    type: Sequelize.STRING,
+  },
+  addressLine2: {
+    type: Sequelize.STRING,
+  },
+  city: {
+    type: Sequelize.STRING,
+  },
+  state: {
+    type: Sequelize.STRING,
+  },
+  country: {
+    type: Sequelize.STRING,
+    defaultValue: "USA",
+  },
+  zipcode: {
+    type: Sequelize.BIGINT,
+  }
 });
 
 module.exports = User;

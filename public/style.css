@@ -194,4 +194,36 @@ form div {
   width: 300px;
 }
 
+#stepsAndSummary{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 
+#steps{
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  justify-content: space-evenly;
+}
+
+.stepSection{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 2px solid blue
+}
+
+#summary{
+  display: flex;
+  flex-direction: column;
+}
+
+#userInfoAndButton{
+  display: flex;
+  flex-direction: row;
+}
+
+#reviewItems{
+  border: 2px solid blue
+}
