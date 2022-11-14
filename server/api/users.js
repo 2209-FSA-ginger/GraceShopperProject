@@ -33,8 +33,15 @@ router.get("/", requireAdminToken, async (req, res, next) => {
 router.put("/:userId", requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
+    const updateInfo = {}
+    for(let keys in req.body){
+      if(keys === "userId"){
+        continue;
+      }
+      updateInfo[keys] = req.body[keys]
+    }
     if (user.password === req.user.password) {
-      const updatedUser = await user.update(req.body);
+      const updatedUser = await user.update(updateInfo);
       res.status(200).send(updatedUser);
     } else {
       const error = Error("Unauthorized User");
