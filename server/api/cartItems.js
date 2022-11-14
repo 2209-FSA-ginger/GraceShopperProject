@@ -4,21 +4,14 @@ const {
 } = require("../db");
 const { requireAdminToken, requireToken } = require("../auth/index");
 
-//GET /api/cartItems/:userId
-router.get("/:userId", requireToken, async (req, res, next) => {
+//GET /api/cartItems
+router.get("/", requireToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId);
-    if (user.password === req.user.password) {
-      const allCartItems = await CartItem.findAll({
-        include: { model: Product },
-        where: { userId: req.params.userId },
-      });
-      res.send(allCartItems);
-    } else {
-      const error = Error("Unauthorized User");
-      error.status = 401;
-      throw error;
-    }
+    const allCartItems = await CartItem.findAll({
+      include: { model: Product },
+      where: { userId: req.user.id },
+    });
+    res.send(allCartItems);
   } catch (err) {
     next(err);
   }
@@ -47,8 +40,19 @@ router.put("/:cartId", requireToken, async (req, res, next) => {
 router.post("/", requireToken, async (req, res, next) => {
   try {
     const newCartItem = { ...req.body, userId: req.user.id };
-    const newItem = await CartItem.create(newCartItem);
-    res.status(201).send(newItem);
+    const [item, created] = await CartItem.findOrCreate({
+      where: {
+        userId: req.user.id,
+        productId: req.body.productId,
+      },
+      defaults: {
+        quantity: req.body.quantity,
+      },
+    });
+    if (!created) {
+      item.update({ quantity: item.quantity + req.body.quantity });
+    }
+    res.status(201).send(item);
   } catch (err) {
     next(err);
   }
@@ -74,20 +78,13 @@ router.delete("/:cartId", requireToken, async (req, res, next) => {
   }
 });
 
-//DELETE /api/cartItems/all/:userId
-router.delete("/all/:userId", requireToken, async (req, res, next) => {
+//DELETE /api/cartItems
+router.delete("/", requireToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId);
-    if (user.password === req.user.password) {
-      await CartItem.destroy({
-        where: { userId: req.params.userId },
-      });
-      res.sendStatus(204);
-    } else {
-      const error = Error("Unauthorized User");
-      error.status = 401;
-      throw error;
-    }
+    await CartItem.destroy({
+      where: { userId: req.user.id },
+    });
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

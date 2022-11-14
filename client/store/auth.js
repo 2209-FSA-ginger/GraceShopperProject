@@ -105,6 +105,7 @@ const loginSlice = createSlice({
   reducers: {
        logout: () => {
            window.localStorage.removeItem("token")
+           window.localStorage.removeItem("cart")
            return {}
        }
   },
