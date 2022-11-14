@@ -1,55 +1,50 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Initial State
-// const initialState = {
-//   products: [],
-//   status: "idle",
-// };
-
-// Async Think
+// Async Thunk
 export const fetchProducts = createAsyncThunk(
   "/products/fetchProducts",
   async (productInfo) => {
     try {
-      let response
-      let endpoint = "/api/products"
-      if(productInfo){
-        endpoint += "?"
-        const {limit, offset, filterCategory, filter, order, scale} = productInfo
+      let response;
+      let endpoint = "/api/products";
+      if (productInfo) {
+        endpoint += "?";
+        const { limit, offset, filterCategory, filter, order, scale } =
+          productInfo;
 
-        if(limit){
-            endpoint += `limit=${limit}`
-        } 
-
-        if(offset){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `offset=${offset}`:
-            endpoint += `&offset=${offset}`
+        if (limit) {
+          endpoint += `limit=${limit}`;
         }
 
-        if(filterCategory){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `filterCategory=${filterCategory}`:
-            endpoint += `&filterCategory=${filterCategory}`
+        if (offset) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `offset=${offset}`)
+            : (endpoint += `&offset=${offset}`);
         }
 
-        if(filter){
-          endpoint[endpoint.length - 1] === "?" ?
-          endpoint += `filter=${filter}`:
-          endpoint += `&filter=${filter}`
+        if (filterCategory) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `filterCategory=${filterCategory}`)
+            : (endpoint += `&filterCategory=${filterCategory}`);
         }
 
-        if(order){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `order=${order}`:
-            endpoint += `&order=${order}`
+        if (filter) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `filter=${filter}`)
+            : (endpoint += `&filter=${filter}`);
         }
 
-        if(scale){
-          endpoint[endpoint.length - 1] === "?" ?
-            endpoint += `scale=${scale}`:
-            endpoint += `&scale=${scale}`
+        if (order) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `order=${order}`)
+            : (endpoint += `&order=${order}`);
+        }
+
+        if (scale) {
+          endpoint[endpoint.length - 1] === "?"
+            ? (endpoint += `scale=${scale}`)
+            : (endpoint += `&scale=${scale}`);
         }
 
         response = await axios.get(endpoint);
@@ -67,11 +62,11 @@ export const fetchProducts = createAsyncThunk(
 const productsSlice = createSlice({
   name: "products",
   initialState: [],
-  reducers: {
-    setProducts: (state, action) => {
-      return action.payload;
-    },
-  },
+  // reducers: {
+  //   setProducts: (state, action) => {
+  //     return action.payload;
+  //   },
+  // },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state, action) => state)
@@ -81,5 +76,5 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-const setProducts = productsSlice.actions.setProducts;
-export { setProducts };
+// const setProducts = productsSlice.actions.setProducts;
+// export { setProducts };
