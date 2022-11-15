@@ -64,11 +64,12 @@ const Navbar = () => {
               <button type="button">My Profile</button>
             </Link>
             <Link to="/editprofile">
-              <button type="button" onClick={handleClick}>
-                {" "}
-                Logout{" "}
-              </button>
+              <button type="button"> Edit Profile </button>
             </Link>
+            <Link to="/editbilling">
+              <button type="button"> Edit Billing Info </button>
+            </Link>
+            <button type="button" onClick={handleClick}> Logout</button>
           </div>
         ) : (
           <div className="btn-ctr">

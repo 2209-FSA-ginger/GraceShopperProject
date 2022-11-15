@@ -6,10 +6,12 @@ import {
   saveCartLocal,
   setCartLocal,
 } from "./store/cart";
+import { me } from "./store/auth"
 
 import Navbar from "./components/Navbar";
 import AllRoutes from "./Routes";
 import FilterColumn from "./components/FilterColumn";
+
 
 const App = () => {
   const { cartItems, isLoading } = useSelector((store) => store.cart);
@@ -23,6 +25,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchCartUser());
     dispatch(setCartLocal());
+    dispatch(me())
   }, []);
 
   return (

@@ -8,6 +8,7 @@ export const me = createAsyncThunk(
   "users/attemptLogin", 
   async () => {
       const token = window.localStorage.getItem(TOKEN)
+      console.log(token);
       const res = await axios.get('/auth/me', {
               headers: {
                 authorization: token
@@ -42,8 +43,10 @@ export const updateInfo  = createAsyncThunk(
   "users/update",
   async (submitInfo) => {
     try{
+      console.log("INFO IS HERE", submitInfo)
+      const token = window.localStorage.getItem(TOKEN)
       const {userId} = submitInfo
-      const {data} = await axios.put(`/api/users/${userId}`, submitInfo)
+      const {data} = await axios.put(`/api/users/${userId}`, submitInfo, {headers: {authorization: token}})
       return data
     } catch (error) {
       console.log(error)

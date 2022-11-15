@@ -18,6 +18,7 @@ import loginSlice from "./auth";
 import productsReducer from "./products";
 import singleProductReducer from "./singleProduct";
 import cartReducer from "./cart";
+import checkoutSlice from "./checkout"
 import logger from "redux-logger";
 
 const store = configureStore({
@@ -26,6 +27,7 @@ const store = configureStore({
     products: productsReducer,
     singleProduct: singleProductReducer,
     cart: cartReducer,
+    checkout: checkoutSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

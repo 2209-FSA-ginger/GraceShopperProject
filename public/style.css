@@ -203,7 +203,7 @@ form div {
 #steps{
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 60%;
   justify-content: space-evenly;
 }
 
@@ -211,12 +211,15 @@ form div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 2px solid blue
+  border: 2px solid blue;
+  margin: 10px;
 }
 
 #summary{
   display: flex;
   flex-direction: column;
+  border: 2px solid blue;
+  width: 35%
 }
 
 #userInfoAndButton{
@@ -224,6 +227,38 @@ form div {
   flex-direction: row;
 }
 
-#reviewItems{
-  border: 2px solid blue
+#review{
+  border: 2px solid blue;
+  margin: 10px;
+}
+
+#reviewTitle{
+  display: flex;
+  justify-content: space-between
+}
+
+.reviewItems{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.reviewItems img {
+  width: 300px;
+  height: 300px;
+}
+
+.reviewProductDescription {
+  margin-left: 10px
+}
+
+#placeOrder{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid blue;
+  margin: 10px;
+}
+
+#orderButton{
+  margin-right: 10px;
 }
