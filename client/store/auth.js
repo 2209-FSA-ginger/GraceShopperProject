@@ -50,10 +50,11 @@ export const authenticate = createAsyncThunk(
 
 export const updateInfo = createAsyncThunk(
   "users/update",
-  async (submitInfo, { dispatch }) => {
-    try {
-      const { userId } = submitInfo;
-      const { data } = await axios.put(`/api/users/${userId}`, submitInfo);
+  async (submitInfo, {dispatch}) => {
+    try{
+      const token = window.localStorage.getItem(TOKEN)
+      const {userId} = submitInfo
+      const {data} = await axios.put(`/api/users/${userId}`, submitInfo, {headers: {authorization: token}})
       dispatch(getMe());
     } catch (error) {
       console.log(error);

@@ -11,6 +11,7 @@ import AllRoutes from "./Routes";
 import FilterColumn from "./components/FilterColumn";
 import { getMe } from "./store/auth";
 
+
 const App = () => {
   const { cartItems } = useSelector((store) => store.cart);
   const { isLoggedIn } = useSelector((state) => state.auth);
