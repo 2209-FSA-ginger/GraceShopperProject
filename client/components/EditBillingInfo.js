@@ -1,18 +1,13 @@
 import React, { useEffect } from "react"
 import {useSelector, useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
-import {updateInfo, me} from "../store/auth"
+import {updateInfo} from "../store/auth"
 
 
 const EditBillingInfo = () => {
     const dispatch = useDispatch()
-    const user = useSelector( state => state.auth)
+    const {me} = useSelector( state => state.auth)
     const navigate = useNavigate()
-
-
-    useEffect(() => {
-        dispatch(me());
-      }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -23,7 +18,7 @@ const EditBillingInfo = () => {
        if(event.target.state.value) submitForm.state = event.target.state.value
        if(event.target.country.value) submitForm.country = event.target.country.value
        if(event.target.zipcode.value) submitForm.zipcode = event.target.zipcode.value 
-       submitForm.userId = user.id
+       submitForm.userId = me.id
        dispatch(updateInfo(submitForm))  
        navigate("/home")
     }

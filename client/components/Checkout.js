@@ -4,10 +4,11 @@ import CheckoutShipping from "./CheckoutShipping"
 import { getUserInfo } from "../store/checkout"
 
 const Checkout = () => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
 const dispatch = useDispatch()
 const checkoutInfo = useSelector( state => state.checkout)
-const isLoggedIn = useSelector(state => state.auth)
+const {isLoggedIn, me} = useSelector(state => state.auth)
 const cart = useSelector( state => state.cart)
 
 const [getView, setView] = useState("normal")
@@ -31,10 +32,13 @@ const checkout = () => {
 
 return (
     <div id="stepsAndSummary">
-        <div id="steps">
-            <div className="stepSection">
-                <h3>1</h3>
-                <h3>Shipping Address</h3>
+      <div id="steps">
+        <div className="stepSection">
+          <h3>1</h3>
+          <h3>Shipping Address</h3>
+          <div>
+            {isLoggedIn ? (
+              <div id="userInfoAndButton">
                 <div>
                     {Object.keys(checkoutInfo).length !== 0 && checkoutInfo.addressLine1 && checkoutInfo.city && checkoutInfo.country && getView === "normal" ?
                     <div id="userInfoAndButton">
@@ -88,9 +92,13 @@ return (
         <div id="summary">
             <h1>Summary</h1>
         </div>
+        <h1>step 4</h1>
+      </div>
+      <div id="summary">
+        <h1>summary</h1>
+      </div>
     </div>
-)
+  );
+};
 
-}
-
-export default Checkout
+export default Checkout;

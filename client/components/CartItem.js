@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchCartUser,
-  addItemUser,
   updateQuantityUser,
   deleteItemUser,
-  clearCartUser,
-  setCartLocal,
-  addItemLocal,
-  deleteItemLocal,
-  updateQuantityLocal,
-  clearCartLocal,
-  calcTotals,
+  updateQuantityGuest,
+  deleteItemGuest,
 } from "../store/cart";
 
 const CartItem = (props) => {
   const { cartItem } = props;
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const [formQuantity, setFormQuantity] = useState(cartItem.quantity);
+  const [formQuantity, setFormQuantity] = useState(`${cartItem.quantity}`);
 
   const changeHandler = (evt) => {
     setFormQuantity(evt.target.value);
@@ -26,9 +20,23 @@ const CartItem = (props) => {
 
   const submitHandler = (evt) => {
     evt.preventDefault();
-    dispatch(
-      updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
-    );
+    if (formQuantity === "0") {
+      if (isLoggedIn) {
+        dispatch(deleteItemUser(cartItem.id));
+      } else {
+        dispatch(deleteItemGuest(cartItem.id));
+      }
+    } else {
+      if (isLoggedIn) {
+        dispatch(
+          updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
+        );
+      } else {
+        dispatch(
+          updateQuantityGuest({ id: cartItem.id, quantity: formQuantity })
+        );
+      }
+    }
   };
 
   return (
@@ -44,7 +52,11 @@ const CartItem = (props) => {
         </p>
         <button
           onClick={() => {
-            dispatch(deleteItemUser(cartItem.id));
+            if (isLoggedIn) {
+              dispatch(deleteItemUser(cartItem.id));
+            } else {
+              dispatch(deleteItemGuest(cartItem.id));
+            }
           }}
         >
           Remove Item
@@ -58,6 +70,8 @@ const CartItem = (props) => {
               step="1"
               value={formQuantity}
               onChange={changeHandler}
+              min="0"
+              max={`${cartItem.product.inventory}`}
             />
             <input type="submit" />
           </form>

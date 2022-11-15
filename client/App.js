@@ -6,27 +6,33 @@ import {
   saveCartLocal,
   setCartLocal,
 } from "./store/cart";
-import { me } from "./store/auth"
-
 import Navbar from "./components/Navbar";
 import AllRoutes from "./Routes";
 import FilterColumn from "./components/FilterColumn";
+import { getMe } from "./store/auth";
 
 
 const App = () => {
-  const { cartItems, isLoading } = useSelector((store) => store.cart);
+  const { cartItems } = useSelector((store) => store.cart);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(calcTotals());
-    dispatch(saveCartLocal());
-  }, [cartItems]);
+    dispatch(getMe());
+  }, []);
 
   useEffect(() => {
-    dispatch(fetchCartUser());
-    dispatch(setCartLocal());
-    dispatch(me())
+    if (isLoggedIn) {
+      dispatch(fetchCartUser());
+    } else {
+      dispatch(setCartLocal());
+    }
   }, []);
+
+  useEffect(() => {
+    dispatch(calcTotals());
+    if (!isLoggedIn) dispatch(saveCartLocal());
+  }, [cartItems]);
 
   return (
     <div>

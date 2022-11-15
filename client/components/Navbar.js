@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../store";
+import { logout } from "../store/auth";
+import { clearCartGuest } from "../store/cart";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth);
+  const { me, isLoggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const [filterCategory, setFilterCategory] = useState("all");
 
   const handleClick = () => {
+    dispatch(clearCartGuest());
     dispatch(logout());
     navigate("/");
   };
@@ -57,28 +59,33 @@ const Navbar = () => {
             <button type="submit"> Search </button>
           </span>
         </form>
-        {Object.keys(isLoggedIn).length !== 0 ? (
-          <div id="rightSideBtns">
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">
-              <button type="button">My Profile</button>
-            </Link>
-            <Link to="/editprofile">
+        <div id="rightSideBtns">
+          <Link to="/cart">
+            <button type="button">Cart</button>
+          </Link>
+          {isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <Link to="/home">
+                <button type="button">My Profile</button>
+              </Link>
+              <Link to="/editprofile">
               <button type="button"> Edit Profile </button>
             </Link>
             <Link to="/editbilling">
               <button type="button"> Edit Billing Info </button>
             </Link>
             <button type="button" onClick={handleClick}> Logout</button>
-          </div>
-        ) : (
-          <div className="btn-ctr">
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">
-              <button className="login">Login</button>
-            </Link>
-          </div>
-        )}
+            </div>
+          ) : (
+            <div className="btn-ctr">
+              {/* The navbar will show these links before you log in */}
+              <Link to="/login">
+                <button className="login">Login</button>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
       <div className="genre-ctr">
         <Link to="/allmusic"> All Music </Link>
