@@ -66,18 +66,17 @@ select {
   color: black;
 }
 
-
-#searchBar{
+#searchBar {
   display: flex;
 }
 
-#rightSideBtns{
+#rightSideBtns {
   display: flex;
   flex-direction: row;
   margin: 10px;
 }
 
-#filterButton{
+#filterButton {
   padding: 9px;
   width: 50px;
 }
@@ -155,31 +154,31 @@ form div {
   height: 300px;
 }
 
-#homepageBackground{
+#homepageBackground {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: rgb(114, 148, 235);
-  height: 700px
+  height: 700px;
 }
 
-#homepageBanner{
+#homepageBanner {
   background-color: rgb(230, 124, 230);
   height: 150px;
   width: 100%;
 }
 
-#homepagePanels{
+#homepagePanels {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-#panelTitle{
-  text-align: center
+#panelTitle {
+  text-align: center;
 }
 
-.homepagePanel{
+.homepagePanel {
   height: 400px;
   width: 300px;
   background-color: rgb(255, 165, 0);
@@ -189,25 +188,25 @@ form div {
   text-align: center;
 }
 
-.topAlbum{
+.topAlbum {
   height: 300px;
   width: 300px;
 }
 
-#stepsAndSummary{
+#stepsAndSummary {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-#steps{
+#steps {
   display: flex;
   flex-direction: column;
   width: 60%;
   justify-content: space-evenly;
 }
 
-.stepSection{
+.stepSection {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -215,29 +214,29 @@ form div {
   margin: 10px;
 }
 
-#summary{
+#summary {
   display: flex;
   flex-direction: column;
   border: 2px solid blue;
-  width: 35%
+  width: 35%;
 }
 
-#userInfoAndButton{
+#userInfoAndButton {
   display: flex;
   flex-direction: row;
 }
 
-#review{
+#review {
   border: 2px solid blue;
   margin: 10px;
 }
 
-#reviewTitle{
+#reviewTitle {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
-.reviewItems{
+.reviewItems {
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
@@ -249,16 +248,22 @@ form div {
 }
 
 .reviewProductDescription {
-  margin-left: 10px
+  margin-left: 10px;
 }
 
-#placeOrder{
+#placeOrder {
   display: flex;
   flex-direction: row;
   border: 2px solid blue;
   margin: 10px;
 }
 
-#orderButton{
+#orderButton {
   margin-right: 10px;
+}
+
+.orders #order-img {
+  display: block;
+  width: 300px;
+  height: 300px;
 }
