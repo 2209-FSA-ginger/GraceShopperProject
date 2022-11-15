@@ -22,13 +22,14 @@ const AuthForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const submitForm = {
-      firstName: evt.target.firstName.value ? evt.target.firstName.value : "" ,
-      lastName: evt.target.lastName.value ? evt.target.lastName.value : "",
+      firstName: evt.target.firstName ? evt.target.firstName.value : "" ,
+      lastName: evt.target.lastName ? evt.target.lastName.value : "",
       username: evt.target.username.value,
       password: evt.target.password.value,
       email: evt.target.email ? evt.target.email.value : "",
       method: getForm.name,
     };
+    console.log(submitForm)
     await dispatch(authenticate(submitForm));
     await Promise.all(
       cartItems.map((item) => {
