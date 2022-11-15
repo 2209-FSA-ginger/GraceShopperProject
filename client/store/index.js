@@ -18,7 +18,8 @@ import loginSlice from "./auth";
 import productsReducer from "./products";
 import singleProductReducer from "./singleProduct";
 import cartReducer from "./cart";
-import checkoutSlice from "./checkout"
+import checkoutSlice from "./checkout";
+import orderReducer from "./orders";
 import logger from "redux-logger";
 
 const store = configureStore({
@@ -27,7 +28,8 @@ const store = configureStore({
     products: productsReducer,
     singleProduct: singleProductReducer,
     cart: cartReducer,
-    checkout: checkoutSlice
+    checkout: checkoutSlice,
+    orders: orderReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

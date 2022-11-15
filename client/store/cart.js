@@ -169,7 +169,7 @@ const cartSlice = createSlice({
       if (cartJSON) {
         state.cartItems = JSON.parse(cartJSON);
       } else {
-        state.cartItems = {};
+        state.cartItems = [];
       }
     },
     saveCartLocal: (state, action) => {

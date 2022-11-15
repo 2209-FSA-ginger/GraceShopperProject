@@ -22,6 +22,7 @@ router.get("/:userId", requireToken, async (req, res, next) => {
           },
         },
       });
+      // console.log("ORDER HIS", orderHistory);
       res.send(orderHistory);
     } else {
       const error = Error("Unauthorized User");
