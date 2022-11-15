@@ -74,7 +74,7 @@ const loginSlice = createSlice({
   reducers: {
     logout: () => {
       window.localStorage.removeItem("token");
-      window.localStorage.removeItem("cart");
+      window.localStorage.removeItem("cartItems");
       return initialState;
     },
   },

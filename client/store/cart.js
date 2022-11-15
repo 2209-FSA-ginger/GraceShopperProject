@@ -35,7 +35,7 @@ export const fetchCartUser = createAsyncThunk(
 // add item for logged in user
 export const addItemUser = createAsyncThunk(
   "/cart/addItemUser",
-  async ({ productId, quantity }, { dispatch }) => {
+  async ({ productId, quantity, runFetch }, { dispatch }) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       const item = await axios.post(
@@ -50,7 +50,9 @@ export const addItemUser = createAsyncThunk(
           },
         }
       );
-      await dispatch(fetchCartUser());
+      if (runFetch) {
+        await dispatch(fetchCartUser());
+      }
     } catch (err) {
       console.log(err);
     }
@@ -163,11 +165,12 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartLocal: (state, action) => {
-      const cart = window.localStorage.getItem("cart");
+      const cart = JSON.parse(window.localStorage.getItem("cartItems"));
+      console.log(cart);
       if (cart) state.cartItems = cart;
     },
     saveCartLocal: (state, action) => {
-      window.localStorage.setItem("cartItems", state.cartItems);
+      window.localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     addItemGuest: (state, action) => {
       const newItem = action.payload;

@@ -7,6 +7,7 @@ import { addItemUser, addItemGuest } from "../store/cart";
 
 const SingleAlbum = () => {
   const { album, tracklist } = useSelector((state) => state.singleProduct);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [cartQty, setCartQty] = useState(1);
 
@@ -24,10 +25,13 @@ const SingleAlbum = () => {
     setCartQty(evt.target.value);
   };
 
-  const submitHandler = async (evt) => {
+  const submitHandler = (evt) => {
     evt.preventDefault();
-    await dispatch(addItemGuest({ product: album, quantity: cartQty }));
-    await dispatch(addItemUser({ productId, quantity: cartQty }));
+    if (isLoggedIn) {
+      dispatch(addItemUser({ productId, quantity: cartQty, runFetch: true }));
+    } else {
+      dispatch(addItemGuest({ id: album.id, product: album, quantity: cartQty }));
+    }
   };
 
   return (

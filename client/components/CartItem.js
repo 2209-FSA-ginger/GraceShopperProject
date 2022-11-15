@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchCartUser,
-  addItemUser,
   updateQuantityUser,
   deleteItemUser,
-  clearCartUser,
-  setCartLocal,
-  addItemLocal,
-  deleteItemLocal,
-  updateQuantityLocal,
-  clearCartLocal,
-  calcTotals,
+  updateQuantityGuest,
+  deleteItemGuest,
 } from "../store/cart";
 
 const CartItem = (props) => {
   const { cartItem } = props;
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [formQuantity, setFormQuantity] = useState(`${cartItem.quantity}`);
@@ -27,11 +21,21 @@ const CartItem = (props) => {
   const submitHandler = (evt) => {
     evt.preventDefault();
     if (formQuantity === "0") {
-      dispatch(deleteItemUser(cartItem.id));
+      if (isLoggedIn) {
+        dispatch(deleteItemUser(cartItem.id));
+      } else {
+        dispatch(deleteItemGuest(cartItem.id));
+      }
     } else {
-      dispatch(
-        updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
-      );
+      if (isLoggedIn) {
+        dispatch(
+          updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
+        );
+      } else {
+        dispatch(
+          updateQuantityGuest({ id: cartItem.id, quantity: formQuantity })
+        );
+      }
     }
   };
 
@@ -48,7 +52,11 @@ const CartItem = (props) => {
         </p>
         <button
           onClick={() => {
-            dispatch(deleteItemUser(cartItem.id));
+            if (isLoggedIn) {
+              dispatch(deleteItemUser(cartItem.id));
+            } else {
+              dispatch(deleteItemGuest(cartItem.id));
+            }
           }}
         >
           Remove Item
