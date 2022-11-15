@@ -272,6 +272,10 @@ form div {
   height: 100px;
 }
 
+.cart {
+  padding: 20px 30px;
+}
+
 .cartItem {
   padding: 20px 30px;
 
