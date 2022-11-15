@@ -7,6 +7,7 @@ const { requireAdminToken, requireToken } = require("../auth/index");
 //GET /api/cartItems
 router.get("/", requireToken, async (req, res, next) => {
   try {
+    console.log("here");
     const allCartItems = await CartItem.findAll({
       include: { model: Product },
       where: { userId: req.user.id },

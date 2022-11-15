@@ -58,6 +58,8 @@ const CartItem = (props) => {
               step="1"
               value={formQuantity}
               onChange={changeHandler}
+              min="0"
+              max={`${cartItem.product.inventory}`}
             />
             <input type="submit" />
           </form>
