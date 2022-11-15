@@ -4,11 +4,11 @@ import {Navigate} from "react-router-dom"
 import AuthForm from './AuthForm';
 
 const SignInPage = () => {
-    const isLoggedIn = useSelector((state) => state.auth)
+    const {me, isLoggedIn} = useSelector((state) => state.auth)
        
     return(
         <div>
-        {Object.keys(isLoggedIn).length === 0  ? (
+        {!isLoggedIn  ? (
             <AuthForm/>
         ) : (
           <Navigate to="/home"/>

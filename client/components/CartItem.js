@@ -18,7 +18,7 @@ const CartItem = (props) => {
   const { cartItem } = props;
   const dispatch = useDispatch();
 
-  const [formQuantity, setFormQuantity] = useState(cartItem.quantity);
+  const [formQuantity, setFormQuantity] = useState(`${cartItem.quantity}`);
 
   const changeHandler = (evt) => {
     setFormQuantity(evt.target.value);
@@ -26,9 +26,13 @@ const CartItem = (props) => {
 
   const submitHandler = (evt) => {
     evt.preventDefault();
-    dispatch(
-      updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
-    );
+    if (formQuantity === "0") {
+      dispatch(deleteItemUser(cartItem.id));
+    } else {
+      dispatch(
+        updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
+      );
+    }
   };
 
   return (

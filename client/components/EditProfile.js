@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 import { me } from "../store";
 
 export const EditProfile = () => {
-  const auth = useSelector((state) => state.auth);
+  const {me, isLoggedIn} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(me());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(me());
+  // }, []);
 
   return (
     <div>
-      {Object.keys(auth).length !== 0 ? (
+      {isLoggedIn ? (
         <div>
-          <h3>Welcome, {auth.username}</h3>
+          <h3>Welcome, {me.username}</h3>
           <h2>Edit Profile</h2>
           <ul>
             <div>

@@ -7,7 +7,6 @@ const { requireAdminToken, requireToken } = require("../auth/index");
 //GET /api/cartItems
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    console.log("here");
     const allCartItems = await CartItem.findAll({
       include: { model: Product },
       where: { userId: req.user.id },
@@ -25,7 +24,6 @@ router.put("/:cartId", requireToken, async (req, res, next) => {
     const updatedQuantity = req.body.quantity;
     const findCartItem = await CartItem.findByPk(req.params.cartId);
     const user = await User.findByPk(findCartItem.userId);
-    console.log(user);
     if (user.password === req.user.password) {
       await findCartItem.update({ quantity: updatedQuantity });
       res.send(findCartItem);

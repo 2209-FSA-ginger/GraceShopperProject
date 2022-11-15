@@ -126,7 +126,7 @@ export const deleteItemUser = createAsyncThunk(
 // clear cart for logged in user
 export const clearCartUser = createAsyncThunk(
   "/cart/clearCartUser",
-  async ({ dispatch }) => {
+  async (_props, { dispatch }) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       await axios.delete(`/api/cartItems`, {

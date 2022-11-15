@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSingleProduct } from "../store/singleProduct";
 import { useParams } from "react-router-dom";
 import { setTracklist } from "../store/singleProduct";
+import { addItemUser, addItemGuest } from "../store/cart";
 
 const SingleAlbum = () => {
   const { album, tracklist } = useSelector((state) => state.singleProduct);
   const dispatch = useDispatch();
+  const [cartQty, setCartQty] = useState(1);
 
   const { productId } = useParams();
 
@@ -18,6 +20,16 @@ const SingleAlbum = () => {
     dispatch(setTracklist());
   }, [album]);
 
+  const changeHandler = (evt) => {
+    setCartQty(evt.target.value);
+  };
+
+  const submitHandler = async (evt) => {
+    evt.preventDefault();
+    await dispatch(addItemGuest({ product: album, quantity: cartQty }));
+    await dispatch(addItemUser({ productId, quantity: cartQty }));
+  };
+
   return (
     <div>
       <ul className="singleAlbum" key={album.id}>
@@ -26,7 +38,20 @@ const SingleAlbum = () => {
           <h3 id="album-title">{album.title}</h3>
           <p id="album-artist">{album.artist}</p>
           <p id="album-price">{`$${album.price}`}</p>
-          <p id="album-inventory">{`Quantity: ${album.inventory}`}</p>
+          <p id="album-inventory">{`Inventory Available: ${album.inventory}`}</p>
+          <form onSubmit={submitHandler}>
+            <label htmlFor="quantity">Quantity:</label>
+            <input
+              type="number"
+              name="quantity"
+              step="1"
+              value={cartQty}
+              onChange={changeHandler}
+              min="0"
+              max={`${album.inventory}`}
+            />
+            <input type="submit" value="Add to Cart" />
+          </form>
           <p>Tracklist</p>
           <div id="album-tracklist">
             {tracklist

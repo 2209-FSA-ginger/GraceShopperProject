@@ -30,11 +30,16 @@ const Cart = () => {
   }
 
   return (
-    <div className="cartDisplay">
-      <h1>Shopping Cart</h1>
-      {cartItems.map((cartItem) => {
-        return <CartItem cartItem={cartItem} key={cartItem.id} />;
-      })}
+    <div>
+      <div className="cartDisplay">
+        <h1>Shopping Cart</h1>
+        {cartItems.map((cartItem, i) => {
+          return (
+            <CartItem cartItem={cartItem} key={cartItem.id ? cartItem.id : i} />
+          );
+        })}
+      </div>
+      <button onClick={(evt) => dispatch(clearCartUser())}>Clear Cart</button>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import updateInfo from "../store/auth"
 const EditBillingInfo = () => {
 
     const dispatch = useDispatch()
-    const user = useSelector( state => state.auth)
+    const {me, isLoggedIn} = useSelector( state => state.auth)
 
     const handleSubmit = (event) => {
         const submitForm = {} 
