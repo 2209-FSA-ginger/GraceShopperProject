@@ -10,6 +10,7 @@ router.get("/", requireToken, async (req, res, next) => {
     const allCartItems = await CartItem.findAll({
       include: { model: Product },
       where: { userId: req.user.id },
+      order: [["id", "ASC"]],
     });
     res.send(allCartItems);
   } catch (err) {
@@ -23,6 +24,7 @@ router.put("/:cartId", requireToken, async (req, res, next) => {
     const updatedQuantity = req.body.quantity;
     const findCartItem = await CartItem.findByPk(req.params.cartId);
     const user = await User.findByPk(findCartItem.userId);
+    console.log(user);
     if (user.password === req.user.password) {
       await findCartItem.update({ quantity: updatedQuantity });
       res.send(findCartItem);
