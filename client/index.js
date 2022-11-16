@@ -11,7 +11,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/admin" element={<AdminApp />} />
+        <Route path="/admin/*" element={<AdminApp />} />
         <Route path="/*" element={<App />} />
       </Routes>
     </BrowserRouter>
