@@ -27,7 +27,7 @@ const App = () => {
     } else {
       dispatch(setCartLocal());
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     dispatch(calcTotals());

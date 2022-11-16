@@ -9,6 +9,7 @@ import Cart from "./components/Cart";
 import EditProfile from "./components/EditProfile";
 import EditBillingInfo from "./components/EditBillingInfo"
 import Checkout from "./components/Checkout"
+import ConfirmationPage from "./components/ConfirmationPage"
 
 
 /**
@@ -18,6 +19,7 @@ const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
+      <Route path="/confirmation" element={<ConfirmationPage/>}/>
       <Route path="/allmusic/:productId" element={<SingleAlbum />} />
       <Route path="/allmusic" element={<AllMusic />} />
       <Route path="/login" element={<SignInPage />} />

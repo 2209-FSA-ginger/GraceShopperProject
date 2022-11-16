@@ -50,7 +50,6 @@ export const fetchProducts = createAsyncThunk(
       } else {
         response = await axios.get(endpoint);
       }
-      console.log(response)
       return response.data;
     } catch (err) {
       console.log(err);

@@ -169,7 +169,7 @@ const cartSlice = createSlice({
       if (cartJSON) {
         state.cartItems = JSON.parse(cartJSON);
       } else {
-        state.cartItems = {};
+        state.cartItems = [];
       }
     },
     saveCartLocal: (state, action) => {
@@ -201,7 +201,7 @@ const cartSlice = createSlice({
     calcTotals: (state, action) => {
       let quantityTotal = 0;
       let priceTotal = 0;
-      if (state.cartItems) {
+      if (Array.isArray(state.cartItems)) {
         state.cartItems.forEach((item) => {
           quantityTotal += item.quantity;
           priceTotal += item.product.displayPrice * item.quantity;

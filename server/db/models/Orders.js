@@ -16,7 +16,6 @@ const Order = db.define("order", {
   },
   addressLine2: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   city: {
     type: Sequelize.STRING,
@@ -36,8 +35,7 @@ const Order = db.define("order", {
     allowNull: false,
   },
   phone: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
+    type: Sequelize.BIGINT
   },
   email: {
     type: Sequelize.STRING,

@@ -14,6 +14,7 @@ const EditBillingInfo = () => {
         const submitForm = {} 
        if(event.target.addressLine1.value) submitForm.addressLine1 = event.target.addressLine1.value
        if(event.target.addressLine2.value) submitForm.addressLine2 = event.target.addressLine2.value
+       if(event.target.creditCard.value) submitForm.creditCard = event.target.creditCard.value
        if(event.target.city.value) submitForm.city = event.target.city.value
        if(event.target.state.value) submitForm.state = event.target.state.value
        if(event.target.country.value) submitForm.country = event.target.country.value
@@ -32,6 +33,8 @@ const EditBillingInfo = () => {
                 <input name="addressLine1"></input>
                 <label>Address 2</label>
                 <input name="addressLine2"></input>
+                <label>Credit Card Number</label>
+                <input name="creditCard"></input>
                 <label>City</label>
                 <input name="city"></input>
                 <label>State</label>

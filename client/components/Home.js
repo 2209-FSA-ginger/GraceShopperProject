@@ -8,12 +8,6 @@ import { Link } from "react-router-dom";
  */
 export const Home = () => {
   const {me, isLoggedIn} = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(me());
-  // }, []);
-
   return (
     <div>
       {isLoggedIn ? (

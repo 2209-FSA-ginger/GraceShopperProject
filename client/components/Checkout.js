@@ -1,26 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutShipping from "./CheckoutShipping";
-import { getUserInfo } from "../store/checkout";
+import { getUserInfo, createPaymentSession } from "../store/checkout";
 
 const Checkout = () => {
   const dispatch = useDispatch();
+
   const checkoutInfo = useSelector((state) => state.checkout);
-  const { isLoggedIn, me } = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart);
 
-  const [getView, setView] = useState("normal");
+  const [getShippingInfo, setShippingInfo] = useState(false);
+  const [getBillingInfo, setBillingInfo] = useState(false);
+  const [getPaymentScreen, setPaymentScreen] = useState(false);
 
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
 
-  const changeBillingInfo = () => {
-    setView("changeInfo");
+  useEffect(() => {
+    setShippingInfo(false)
+    setBillingInfo(false)
+    setPaymentScreen(false)
+  }, [checkoutInfo])
+
+  const changeView = (event) => {
+    if(event.target.name === "shippingInfo"){
+      setShippingInfo(true);
+    } else if(event.target.name === "billingInfo"){
+      setBillingInfo(true);
+    } 
   };
 
-  const checkout = () => {
-    //add to orderprooducts
+  const checkout = async () => {
+    setPaymentScreen(true);
+    const finalCheckoutInfo = {...checkoutInfo}
+    localStorage.setItem("checkoutInfo", JSON.stringify(finalCheckoutInfo))
+    const products = []
+    cart.cartItems.forEach(item => {
+      products.push({
+        quantity: item.quantity,
+        price: item.product.price,
+        name: item.product.title,
+        images: [item.product.imageURL]
+      })
+    } )
+
+    const paymentSite = await dispatch(createPaymentSession(products)).unwrap()
+    window.location = paymentSite
   };
 
   return (
@@ -34,29 +60,37 @@ const Checkout = () => {
             checkoutInfo.addressLine1 &&
             checkoutInfo.city &&
             checkoutInfo.country &&
-            getView === "normal" ? (
+            getShippingInfo === false? (
               <div id="userInfoAndButton">
                 <div>
                   <h4>{`${checkoutInfo.firstName} ${checkoutInfo.lastName}`}</h4>
                   <h4>{checkoutInfo.addressLine1}</h4>
-                  <h4>{`${checkoutInfo.city}, ${checkoutInfo.country}`}</h4>
-                  <h4></h4>
+                  <h4>{`${checkoutInfo.city}, ${checkoutInfo.state}, ${checkoutInfo.zipcode}`}</h4>
+                  <h4>{`${checkoutInfo.country}`}</h4>
                 </div>
                 <div>
-                  <button type="button" onClick={changeBillingInfo}>
+                  <button type="button" name="shippingInfo" onClick={changeView}>
                     Change
                   </button>
                 </div>
               </div>
             ) : (
-              <CheckoutShipping isLogggedIn={isLoggedIn} />
+              <CheckoutShipping/>
             )}
           </div>
         </div>
         <div className="stepSection">
           <h3>2</h3>
           <h3>Payment Method</h3>
-          <div></div>
+          <div>
+            {checkoutInfo.creditCard && getBillingInfo === false ?
+            <div>
+            <h2>Credit Card: {checkoutInfo.creditCard}</h2>
+            <button onClick={changeView} name="billingInfo">Change</button>
+            </div>:
+            <CheckoutShipping changeCreditCard={true}/>
+          }
+          </div>
         </div>
         <div id="review">
           <div id="reviewTitle">
@@ -64,7 +98,7 @@ const Checkout = () => {
             <h3>Review Items and Shipping</h3>
             <div></div>
           </div>
-          {cart.cartItems.map((item) => (
+          {cart.isLoading === false && Array.isArray(cart.cartItems)  ? cart.cartItems.map((item) => (
             <div className="reviewItems" key={item.id}>
               <div>
                 <img src={item.product.imageURL} />
@@ -76,19 +110,23 @@ const Checkout = () => {
                 <h5>Quantity: {item.quantity}</h5>
               </div>
             </div>
-          ))}
-        </div>
-        <div id="placeOrder">
-          <button id="orderButton" onClick={checkout}>
-            Place Order
-          </button>
-          <div>
-            <h3>Order Total: {`$${cart.priceTotal}`}</h3>
-          </div>
+          )):
+          <h1>Loading Cart...</h1>}
         </div>
       </div>
       <div id="summary">
-        <h1>Summary</h1>
+        {getPaymentScreen === false ?
+        <div>
+          <h1>Summary</h1>
+          <div>
+              <h3>Order Total: {`$${cart.priceTotal}`}</h3>
+          </div>
+          <button id="orderButton" onClick={checkout} name="paymentScreen">
+              Proceed To Payment Screen
+          </button>
+        </div> :
+        <h1>Loading Payment Screen...</h1>
+      }
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import { clearCartUser, clearCartGuest } from "../store/cart";
 
@@ -40,6 +41,11 @@ const Cart = () => {
       >
         Clear Cart
       </button>
+      <Link to='/checkout'>
+        <button>
+          Proceed To Checkout
+        </button>
+      </Link>
     </div>
   );
 };
