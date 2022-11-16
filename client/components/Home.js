@@ -15,7 +15,7 @@ export const Home = () => {
   // }, []);
 
   return (
-    <div>
+    <div className="home-pg">
       {isLoggedIn ? (
         <div>
           <h3>Welcome, {me.username}</h3>

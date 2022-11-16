@@ -2,8 +2,6 @@ body {
   font-family: sans-serif;
   margin: 0px;
   padding: 0px;
-  /* background-color: #f3d2c1;
-  color: #001858; */
 }
 
 a {
@@ -266,4 +264,55 @@ form div {
   display: block;
   width: 300px;
   height: 300px;
+}
+
+#cartItem-img {
+  /* display: block; */
+  width: 100px;
+  height: 100px;
+}
+
+.cart {
+  padding: 20px 30px;
+}
+
+.cartItem {
+  padding: 20px 30px;
+
+  border-top: 1px solid #e1e8ee;
+  border-bottom: 1px solid #e1e8ee;
+}
+
+.cart-quantity {
+  padding-top: 1em;
+}
+
+.page-nav {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-pg {
+  position: relative;
+  margin-left: 50%;
+  margin-right: 10%;
+  margin-top: 2%;
+}
+
+.edit-form {
+  display: inline-block;
+  position: relative;
+  margin-left: 50%;
+  margin-right: 50%;
+  width: 70%;
+  margin-top: 2%;
+}
+
+#edit-button {
+  position: absolute;
+  left: 0px;
+  bottom: -50px;
+  width: 140px;
 }

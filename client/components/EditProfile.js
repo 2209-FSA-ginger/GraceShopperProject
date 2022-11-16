@@ -27,7 +27,7 @@ export const EditProfile = () => {
   };
 
   return (
-    <div>
+    <div className="edit-form">
       <h2>Edit Profile</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
@@ -42,7 +42,9 @@ export const EditProfile = () => {
         <input name="lastName" />
         <label htmlFor="phone">Phone:</label>
         <input name="phone" />
-        <button type="submit">Save Changes</button>
+        <button id="edit-button" type="submit">
+          Save Changes
+        </button>
       </form>
     </div>
   );
