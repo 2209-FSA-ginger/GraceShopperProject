@@ -7,12 +7,8 @@ import { Link } from "react-router-dom";
  * COMPONENT
  */
 export const Home = () => {
-  const { me, isLoggedIn } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(me());
-  // }, []);
+  const {me, isLoggedIn} = useSelector((state) => state.auth);
 
   return (
     <div className="home-pg">

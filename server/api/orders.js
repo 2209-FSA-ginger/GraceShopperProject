@@ -59,6 +59,7 @@ router.post("/", async (req, res, next) => {
   try {
     const order = await Order.create(req.body.order);
     const products = req.body.products;
+    console.log(products)
     await Promise.all(
       products.map((product) => {
         return OrderProduct.create({
