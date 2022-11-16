@@ -249,7 +249,7 @@ async function seed() {
   for (let i = 0; i < albumList.length; i++) {
     const { data: album } = await axios.get(albumList[i].resource_url, config);
     albumData.push(album);
-    await delay(1050);
+    await delay(3000); // was 1050
   }
 
   //Creating Products
