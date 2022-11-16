@@ -31,6 +31,9 @@ export const OrderHistory = () => {
                   <p id="order-price">{`Price: $${orderProd.price}`}</p>
                   <p id="order-quantity">{`Quantity: ${orderProd.quantity}`}</p>
                   <p id="order-artist">{`Artist: ${orderProd.product.artist}`}</p>
+                  <p id="order-date">{`Order Placed: ${new Date(
+                    orderProd.createdAt
+                  )}`}</p>
                 </ul>
               </div>
             );

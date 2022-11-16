@@ -22,14 +22,14 @@ const AuthForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const submitForm = {
-      firstName: evt.target.firstName ? evt.target.firstName.value : "" ,
+      firstName: evt.target.firstName ? evt.target.firstName.value : "",
       lastName: evt.target.lastName ? evt.target.lastName.value : "",
       username: evt.target.username.value,
       password: evt.target.password.value,
       email: evt.target.email ? evt.target.email.value : "",
       method: getForm.name,
     };
-    console.log(submitForm)
+    console.log(submitForm);
     await dispatch(authenticate(submitForm));
     await Promise.all(
       cartItems.map((item) => {
@@ -47,7 +47,7 @@ const AuthForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={getForm.name}>
+      <form className="login-form" onSubmit={handleSubmit} name={getForm.name}>
         {getForm.name === "signup" ? (
           <>
             <div>
