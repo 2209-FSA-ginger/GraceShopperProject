@@ -52,6 +52,7 @@ select {
   overflow: visible;
   margin-left: 1em;
   float: left;
+  padding: 20px 2px;
 }
 
 #navbarTop input {
@@ -256,18 +257,27 @@ form div {
   margin: 10px;
 }
 
+.orders {
+  padding: 20px 30px;
+  /* block-size: fit-content(50em); */
+
+  /* border: 2em solid #001858; */
+  border-top: 1px solid #e1e8ee;
+  border-bottom: 1px solid #e1e8ee;
+}
+
 #orderButton {
   margin-right: 10px;
 }
 
 .orders #order-img {
   display: block;
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
 }
 
 #cartItem-img {
-  /* display: block; */
+  display: block;
   width: 100px;
   height: 100px;
 }
@@ -296,7 +306,7 @@ form div {
 
 .home-pg {
   position: relative;
-  margin-left: 50%;
+  margin-left: 45%;
   margin-right: 10%;
   margin-top: 2%;
 }
@@ -304,7 +314,7 @@ form div {
 .edit-form {
   display: inline-block;
   position: relative;
-  margin-left: 50%;
+  margin-left: 45%;
   margin-right: 50%;
   width: 70%;
   margin-top: 2%;
@@ -315,4 +325,12 @@ form div {
   left: 0px;
   bottom: -50px;
   width: 140px;
+}
+
+.login-form {
+  display: inline-block;
+  position: relative;
+  margin-left: 45%;
+  margin-right: 50%;
+  margin-top: 2%;
 }
