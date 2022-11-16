@@ -11,8 +11,8 @@ const ConfirmationPage = () => {
     const {me, isLoggedIn} = useSelector(state => state.auth)
     const products = []
 
-    if(cart.cartItems.length > 0)
-    {
+    // if(cart.cartItems.length > 0)
+    // {
         cart.cartItems.forEach(item => {
             products.push({quantity: item.quantity,
                             price: item.product.displayPrice,
@@ -33,7 +33,7 @@ const ConfirmationPage = () => {
             dispatch(clearCartUser())
         }
         
-    }
+    // }
 
     return(
         <div>
