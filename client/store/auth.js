@@ -13,6 +13,9 @@ export const getMe = createAsyncThunk(
         authorization: token,
       },
     });
+    if (res.data.isadmin) {
+      window.localStorage.setItem("adminToken", token);
+    }
     return res.data;
   },
   {
@@ -50,11 +53,13 @@ export const authenticate = createAsyncThunk(
 
 export const updateInfo = createAsyncThunk(
   "users/update",
-  async (submitInfo, {dispatch}) => {
-    try{
-      const token = window.localStorage.getItem(TOKEN)
-      const {userId} = submitInfo
-      const {data} = await axios.put(`/api/users/${userId}`, submitInfo, {headers: {authorization: token}})
+  async (submitInfo, { dispatch }) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      const { userId } = submitInfo;
+      const { data } = await axios.put(`/api/users/${userId}`, submitInfo, {
+        headers: { authorization: token },
+      });
       dispatch(getMe());
     } catch (error) {
       console.log(error);
@@ -75,6 +80,7 @@ const loginSlice = createSlice({
   reducers: {
     logout: () => {
       window.localStorage.removeItem("token");
+      window.localStorage.removeItem("adminToken");
       window.localStorage.removeItem("cartItems");
       return initialState;
     },

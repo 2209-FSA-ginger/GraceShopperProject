@@ -12,7 +12,6 @@ router.get("/", requireAdminToken, async (req, res, next) => {
   try {
     let users;
     if (req.query) {
-      console.log(req.query);
       const filterObject = {};
 
       //add page and perPage

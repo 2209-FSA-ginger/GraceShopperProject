@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Admin, Resource, fetchUtils } from "react-admin";
 import simpleRestProvider from "ra-data-simple-rest";
-import { UserList, UserEdit, UserCreate } from "./components/User";
 import authProvider from "./authProvider";
+import { UserList, UserEdit, UserCreate } from "./components/User";
+import { ProductList, ProductEdit, ProductCreate } from "./components/Product";
 
 const httpClient = (url, options = {}) => {
-  // if (!options.headers) {
-  //     options.headers = new Headers({ Accept: 'application/json' });
-  // }
+  if (!options.headers) {
+      options.headers = new Headers({ Accept: 'application/json' });
+  }
   const token = window.localStorage.getItem("adminToken");
   if (!options.headers) {
     options.headers = new Headers({ Accept: "application/json" });
@@ -27,6 +28,12 @@ const AdminApp = () => (
     dataProvider={dataProvider}
     authProvider={authProvider}
   >
+    <Resource
+      name="products"
+      list={ProductList}
+      edit={ProductEdit}
+      create={ProductCreate}
+    />
     <Resource
       name="users"
       list={UserList}
