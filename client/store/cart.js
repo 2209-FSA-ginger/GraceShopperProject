@@ -201,7 +201,7 @@ const cartSlice = createSlice({
     calcTotals: (state, action) => {
       let quantityTotal = 0;
       let priceTotal = 0;
-      if (Array.isArray(state.cartItems)) {
+      if (state.cartItems) {
         state.cartItems.forEach((item) => {
           quantityTotal += item.quantity;
           priceTotal += item.product.displayPrice * item.quantity;

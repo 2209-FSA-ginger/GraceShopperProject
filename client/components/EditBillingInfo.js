@@ -1,13 +1,12 @@
-import React, { useEffect } from "react"
-import {useSelector, useDispatch} from "react-redux"
-import {useNavigate} from "react-router-dom"
-import {updateInfo} from "../store/auth"
-
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { updateInfo } from "../store/auth";
 
 const EditBillingInfo = () => {
-    const dispatch = useDispatch()
-    const {me} = useSelector( state => state.auth)
-    const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const { me } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -25,7 +24,7 @@ const EditBillingInfo = () => {
     }
 
     return (
-        <div>
+        <div className="edit-form">
             <h2>My Billing Info</h2>
             
             <form onSubmit={handleSubmit}>
@@ -49,4 +48,5 @@ const EditBillingInfo = () => {
     )
 }
 
-export default EditBillingInfo
+
+export default EditBillingInfo;

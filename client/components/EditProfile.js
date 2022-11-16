@@ -1,37 +1,51 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { me } from "../store";
+import { useNavigate } from "react-router-dom";
+import { updateInfo } from "../store";
 
 export const EditProfile = () => {
-  const {me, isLoggedIn} = useSelector((state) => state.auth);
+  const { me } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(me());
-  // }, []);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const submitForm = {};
+    if (event.target.username.value)
+      submitForm.username = event.target.username.value;
+    if (event.target.password.value)
+      submitForm.password = event.target.password.value;
+    if (event.target.email.value) submitForm.email = event.target.email.value;
+    if (event.target.firstName.value)
+      submitForm.firstName = event.target.firstName.value;
+    if (event.target.lastName.value)
+      submitForm.lastName = event.target.lastName.value;
+    if (event.target.phone.value) submitForm.phone = event.target.phone.value;
+    submitForm.userId = me.id;
+    dispatch(updateInfo(submitForm));
+    navigate("/home");
+  };
 
   return (
-    <div>
-      {isLoggedIn ? (
-        <div>
-          <h3>Welcome, {me.username}</h3>
-          <h2>Edit Profile</h2>
-          <ul>
-            <div>
-              <label for="firstName">First Name:</label>
-              <input type="text" id="firstName" name="firstName"></input>
-              <label for="lastName">Last Name:</label>
-              <input type="text" id="lastName" name="lastName"></input>
-            </div>
-          </ul>
-        </div>
-      ) : (
-        <div>
-          <h1> Please log back into your account </h1>{" "}
-          <Link to="/login"> HERE </Link>
-        </div>
-      )}
+    <div className="edit-form">
+      <h2>Edit Profile</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
+        <input name="username" />
+        <label htmlFor="password">Password:</label>
+        <input name="password" />
+        <label htmlFor="email">Email:</label>
+        <input name="email" />
+        <label htmlFor="firstName">First Name:</label>
+        <input name="firstName" />
+        <label htmlFor="lastName">Last Name:</label>
+        <input name="lastName" />
+        <label htmlFor="phone">Phone:</label>
+        <input name="phone" />
+        <button id="edit-button" type="submit">
+          Save Changes
+        </button>
+      </form>
     </div>
   );
 };

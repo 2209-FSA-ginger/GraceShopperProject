@@ -11,7 +11,7 @@ const ConfirmationPage = () => {
     const {me, isLoggedIn} = useSelector(state => state.auth)
     const products = []
 
-    if(Array.isArray(cart.cartItems) && cart.cartItems.length > 0)
+    if(cart.cartItems.length > 0)
     {
         cart.cartItems.forEach(item => {
             products.push({quantity: item.quantity,
@@ -25,7 +25,7 @@ const ConfirmationPage = () => {
         if (order.creditCard === undefined) order.creditCard = me.creditCard
         order.userId = me.id
 
-        if(Object.keys(order).length <= 10){
+        if(Object.keys(order).length >= 10){
             const checkoutObj = {order, products}
             console.log(checkoutObj)
             dispatch(placeOrder(checkoutObj))

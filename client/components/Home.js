@@ -7,12 +7,17 @@ import { Link } from "react-router-dom";
  * COMPONENT
  */
 export const Home = () => {
+
   const {me, isLoggedIn} = useSelector((state) => state.auth);
+
   return (
-    <div>
+    <div className="home-pg">
       {isLoggedIn ? (
         <div>
           <h3>Welcome, {me.username}</h3>
+          <Link to={`/orders/${me.id}`}>
+            <button type="button">My Orders</button>
+          </Link>
         </div>
       ) : (
         <div>

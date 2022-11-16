@@ -61,7 +61,7 @@ const CartItem = (props) => {
         >
           Remove Item
         </button>
-        <div>
+        <div className="cart-quantity">
           <form onSubmit={submitHandler}>
             <label htmlFor="quantity">Update Quantity:</label>
             <input
