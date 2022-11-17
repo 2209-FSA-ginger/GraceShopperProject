@@ -33,7 +33,7 @@ export const UserList = () => (
       <TextField source="addressLine2" />
       <TextField source="city" />
       <TextField source="state" />
-      <TextField source="county" />
+      <TextField source="country" />
       <NumberField source="zip" />
       <DateField source="createdAt" />
       <DateField source="updatedAt" />
@@ -47,6 +47,7 @@ export const UserCreate = (props) => {
   return (
     <Create title="Add a new user" {...props}>
       <SimpleForm>
+        <h2>Add a new user </h2>
         <TextInput source="firstName" />
         <TextInput source="lastName" />
         <TextInput source="username" />
@@ -62,6 +63,7 @@ export const UserEdit = (props) => {
   return (
     <Edit title="Edit a user" {...props}>
       <SimpleForm>
+        <h2>Edit a user </h2>
         <TextInput source="firstName" />
         <TextInput source="lastName" />
         <TextInput source="username" />
@@ -73,7 +75,7 @@ export const UserEdit = (props) => {
         <TextInput source="addressLine2" />
         <TextInput source="city" />
         <TextInput source="state" />
-        <TextInput source="county" />
+        <TextInput source="country" />
         <NumberInput source="zip" />
       </SimpleForm>
     </Edit>

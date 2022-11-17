@@ -4,10 +4,11 @@ import simpleRestProvider from "ra-data-simple-rest";
 import authProvider from "./authProvider";
 import { UserList, UserEdit, UserCreate } from "./components/User";
 import { ProductList, ProductEdit, ProductCreate } from "./components/Product";
+import { OrderList, OrderEdit, OrderCreate } from "./components/Order";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
-      options.headers = new Headers({ Accept: 'application/json' });
+    options.headers = new Headers({ Accept: "application/json" });
   }
   const token = window.localStorage.getItem("adminToken");
   if (!options.headers) {
@@ -39,6 +40,13 @@ const AdminApp = () => (
       list={UserList}
       edit={UserEdit}
       create={UserCreate}
+    />
+    <Resource
+      name="orders"
+      list={OrderList}
+      edit={OrderEdit}
+      create={OrderCreate}
+      recordRepresentation="title"
     />
   </Admin>
 );

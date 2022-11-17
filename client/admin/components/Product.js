@@ -49,7 +49,7 @@ export const ProductCreate = (props) => {
   return (
     <Create title="Add an album" {...props}>
       <SimpleForm>
-        <h2>Add an album from Discog </h2>
+        <h2>Add a new album from Discog </h2>
         <TextInput source="albumId" label="Discog Album ID" />
         <BooleanInput disabled source="custom" defaultValue={false} />
       </SimpleForm>
@@ -80,6 +80,8 @@ export const ProductEdit = (props) => {
   return (
     <Edit title="Edit an album" {...props}>
       <SimpleForm>
+        <h2>Edit an album </h2>
+        <NumberInput disabled source="id" />
         <TextInput source="imageURL" label="Album Cover URL" type="url" />
         <TextInput source="albumId" />
         <TextInput source="title" />
