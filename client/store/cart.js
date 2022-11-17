@@ -168,7 +168,6 @@ const cartSlice = createSlice({
       const cartJSON =
         window.localStorage.getItem("cartItems") ||
         JSON.stringify(state.cartItems);
-      JSON.stringify(state.cartItems);
       if (cartJSON) {
         state.cartItems = JSON.parse(cartJSON);
       } else {
@@ -203,15 +202,15 @@ const cartSlice = createSlice({
     },
     calcTotals: (state, action) => {
       let quantityTotal = 0;
-      let priceTotal = 0;
+      let priceTotal = 0.00;
       if (state.cartItems) {
         state.cartItems.forEach((item) => {
           quantityTotal += item.quantity;
-          priceTotal += item.product.displayPrice * item.quantity;
+          priceTotal += Number(item.product.displayPrice) * item.quantity;
         });
       }
       state.quantityTotal = quantityTotal;
-      state.priceTotal = priceTotal;
+      state.priceTotal = Math.round(priceTotal * 100)/100 ;
     },
   },
   extraReducers: (builder) => {

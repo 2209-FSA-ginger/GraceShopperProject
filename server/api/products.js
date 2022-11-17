@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
       if (req.query.limit) filterObject.limit = req.query.limit;
 
       //add offset
-      if (req.query.page) filterObject.offset = (req.query.page - 1) * 3;
+      if (req.query.page) filterObject.offset = (req.query.page - 1) * req.query.limit;
 
       //filterCategory and filter (filterCategory refers to the property you want to filter eg. genre,
       //and filter is how you want to filter the category eg. pop)
