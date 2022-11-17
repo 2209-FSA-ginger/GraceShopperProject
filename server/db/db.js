@@ -20,12 +20,6 @@ if(process.env.DATABASE_URL){
   };
 }
 
-config.dialectOptions = {
-  ssl: {
-    rejectUnauthorized: false
-  }
-};
-
 const db = new Sequelize(
-  "postgres://graceshopper_db_user:1DkgA932cTyvEu3FIVrysmoVelGarwTp@dpg-cdqgclla4994et8r5n1g-a.ohio-postgres.render.com/graceshopper_db", config)
+  process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`, config)
 module.exports = db
