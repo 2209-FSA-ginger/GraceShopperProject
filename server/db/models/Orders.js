@@ -17,6 +17,7 @@ const Order = db.define("order", {
   },
   addressLine2: {
     type: Sequelize.STRING,
+    allowNull: true
   },
   city: {
     type: Sequelize.STRING,

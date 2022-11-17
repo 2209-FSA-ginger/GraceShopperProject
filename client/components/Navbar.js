@@ -25,7 +25,7 @@ const Navbar = () => {
     //in event listeners, why don'tw e have to put this in () => {first}
     event.preventDefault();
     navigate(
-      `/allmusic?page=1&limit=3&filterCategory=${filterCategory}&filter=${event.target.searchBar.value}`,
+      `/allmusic?page=1&limit=9&filterCategory=${filterCategory}&filter=${event.target.searchBar.value}`,
       { state: event.target.searchBar.value }
     );
   };
@@ -100,31 +100,31 @@ const Navbar = () => {
       <div className="genre-ctr">
         <Link to="/allmusic"> All Music </Link>
         <Link
-          to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Hip Hop"
+          to="/allmusic?page=1&limit=9&filterCategory=genre&filter=Hip Hop"
           state={{ query: "Hip Hop" }}
         >
           Hip-Hop
         </Link>
         <Link
-          to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Funk / Soul"
+          to="/allmusic?page=1&limit=9&filterCategory=genre&filter=Funk / Soul"
           state={{ query: "Funk / Soul" }}
         >
           Funk/Soul
         </Link>
         <Link
-          to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Rock"
+          to="/allmusic?page=1&limit=9&filterCategory=genre&filter=Rock"
           state={{ query: "Rock" }}
         >
           Rock
         </Link>
         <Link
-          to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Pop"
+          to="/allmusic?page=1&limit=9&filterCategory=genre&filter=Pop"
           state={{ query: "Pop" }}
         >
           Pop
         </Link>
         <Link
-          to="/allmusic?page=1&limit=3&filterCategory=genre&filter=Electronic"
+          to="/allmusic?page=1&limit=9&filterCategory=genre&filter=Electronic"
           state={{ query: "Electronic" }}
         >
           Electronic
