@@ -198,6 +198,16 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
+// ADMIN ACCOUNT
+users.push({
+  firstName: "admin",
+  lastName: "administer",
+  username: "admin",
+  password: "123",
+  isAdmin: true,
+  email: "admin@gmail.com",
+});
+
 const guests = [];
 for (let i = 0; i < 50; i++) {
   guests.push({
