@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { clearCartGuest, clearCartUser} from "../store/cart";
@@ -10,9 +10,15 @@ const ConfirmationPage = () => {
     const cart = useSelector(state => state.cart)
     const {me, isLoggedIn} = useSelector(state => state.auth)
     const products = []
+    const [getRender, setRender] = useState("first")
 
-    // if(cart.cartItems.length > 0)
-    // {
+    useEffect(() => {
+        setRender("second")
+    }, [])
+  
+
+    if(cart.cartItems.length > 0 && getRender === "second")
+    {
         cart.cartItems.forEach(item => {
             products.push({quantity: item.quantity,
                             price: item.product.displayPrice,
@@ -32,8 +38,7 @@ const ConfirmationPage = () => {
             dispatch(clearCartGuest())
             dispatch(clearCartUser())
         }
-        
-    // }
+    }
 
     return(
         <div>
