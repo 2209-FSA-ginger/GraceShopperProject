@@ -102,6 +102,7 @@ router.post("/", async (req, res, next) => {
     }
     const order = await Order.create(orderObject);
     const products = productArray;
+
     await Promise.all(
       products.map((product) => {
         return OrderProduct.create({

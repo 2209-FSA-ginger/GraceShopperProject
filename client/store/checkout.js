@@ -3,11 +3,36 @@ import axios from "axios"
 
 const TOKEN = "token"
 
+
+export const createPaymentSession = createAsyncThunk(
+    "checkout/paymentSession",
+    async (productInfo) => {
+        try{
+            const { data } = await axios.post("https://grace-shopper-app.onrender.com/api/payment/session", productInfo)
+            return data
+        } catch (error){
+            console.log(error)
+        }
+    }
+)
+
+export const placeOrder = createAsyncThunk(
+    "checkout/placeOrder",
+    async(checkoutInfo) => {
+        try {
+            const {data} = await axios.post("/api/orders", checkoutInfo)
+            console.log(data)
+            return data
+        } catch(error) {
+            console.log(error)
+        }
+    }
+)
+
 export const getUserInfo = createAsyncThunk(
-    "users/getUserInfo", 
+    "checkout/getUserInfo", 
     async () => {
         const token = window.localStorage.getItem(TOKEN)
-        console.log(token);
         const res = await axios.get('/auth/me', {
                 headers: {
                   authorization: token
@@ -28,21 +53,25 @@ const initialState = {}
 const checkoutSlice = createSlice({
     name: "checkout",
     initialState,
-    reducer: {
+    reducers: {
         updateCheckoutInfo: (state, action) => {
-           const {firstName, lastName, addressLine1, city, country } = action.payload
-           if(firstName) state.firstName = firstName
-           if(lastName) state.lastName = lastName
-           if(addressLine1) state.addressLine1 = addressLine1
-           if(city) state.city = city
-           if(country) state.country = country
+            if(action.payload.creditCard){
+                state.creditCard = action.payload.creditCard
+            } else {
+                return action.payload
+            }
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(getUserInfo.fulfilled, (state, action) => {
-                const {firstName, lastName, addressLine1, city, country} = action.payload
-                return {firstName, lastName, addressLine1, city, country}
+                const newState = {}
+                for(let keys in action.payload){
+                    if(keys !== "id" && keys !== "username" && keys !== "password" && keys !== "phone" && keys !== "isAdmin" && keys !== "createdAt" && keys !== "updatedAt" ){
+                        newState[keys] = action.payload[keys]
+                    }
+                }
+                return newState
             })
     }
 })

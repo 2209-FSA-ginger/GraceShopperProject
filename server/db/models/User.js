@@ -71,6 +71,9 @@ const User = db.define("user", {
   },
   zipcode: {
     type: Sequelize.BIGINT,
+  },
+  creditCard: {
+    type: Sequelize.BIGINT
   }
 });
 
