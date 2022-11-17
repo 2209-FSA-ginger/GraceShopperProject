@@ -4,7 +4,7 @@ const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
 // POST api/payment/session
 router.post("/session", async (req, res) => {
-    console.log(req.body)
+    console.log("HIT")
     const items = req.body.map( item => {
             return {
                 price_data: {
@@ -18,6 +18,7 @@ router.post("/session", async (req, res) => {
                 quantity: item.quantity
             }
         })
+    console.log(items)
     try{
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
