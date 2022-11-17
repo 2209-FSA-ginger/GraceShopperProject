@@ -23,14 +23,14 @@ export const OrderHistory = () => {
       <h2>Order History</h2>
       <div>
         {orders.length !== 0 ? (
-          orders[0].orderProducts.map((orderProd, i) => {
+          orders.map((orderProd, i) => {
             return (
               <div key={i}>
                 <ul className="orders">
-                  <img id="order-img" src={orderProd.product.imageURL} />
-                  <p id="order-price">{`Price: $${orderProd.price}`}</p>
-                  <p id="order-quantity">{`Quantity: ${orderProd.quantity}`}</p>
-                  <p id="order-artist">{`Artist: ${orderProd.product.artist}`}</p>
+                  <img id="order-img" src={orderProd.orderProducts[0].product.imageURL} />
+                  <p id="order-price">{`Price: $${orderProd.orderProducts[0].price}`}</p>
+                  <p id="order-quantity">{`Quantity: ${orderProd.orderProducts[0].quantity}`}</p>
+                  <p id="order-artist">{`Artist: ${orderProd.orderProducts[0].product.artist}`}</p>
                   <p id="order-date">{`Order Placed: ${new Date(
                     orderProd.createdAt
                   )}`}</p>

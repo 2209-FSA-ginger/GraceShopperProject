@@ -21,6 +21,7 @@ router.get("/history/:userId", requireToken, async (req, res, next) => {
             model: Product,
           },
         },
+        order: [["createdAt", "DESC"]]
       });
       res.send(orderHistory);
     } else {
