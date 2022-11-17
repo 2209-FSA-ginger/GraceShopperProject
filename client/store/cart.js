@@ -165,7 +165,10 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartLocal: (state, action) => {
-      const cartJSON = window.localStorage.getItem("cartItems");
+      const cartJSON =
+        window.localStorage.getItem("cartItems") ||
+        JSON.stringify(state.cartItems);
+      JSON.stringify(state.cartItems);
       if (cartJSON) {
         state.cartItems = JSON.parse(cartJSON);
       } else {
