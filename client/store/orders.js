@@ -15,7 +15,7 @@ export const fetchOrders = createAsyncThunk(
           authorization: token,
         },
       });
-      // console.log("ORDER RES", response.data);
+      console.log("ORDER RES", response.data);
       return response.data;
     } catch (err) {
       console.log(err);
