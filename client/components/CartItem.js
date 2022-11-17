@@ -29,7 +29,7 @@ const CartItem = (props) => {
     } else {
       if (isLoggedIn) {
         dispatch(
-          updateQuantityUser({ cartId: cartItem.id, quantity: formQuantity })
+          updateQuantityUser({ cartId: cartItem.id, quantity: +formQuantity })
         );
       } else {
         dispatch(

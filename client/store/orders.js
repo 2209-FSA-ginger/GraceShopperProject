@@ -10,7 +10,7 @@ export const fetchOrders = createAsyncThunk(
   async (userId) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      const response = await axios.get(`/api/orders/${userId}`, {
+      const response = await axios.get(`/api/orders/history/${userId}`, {
         headers: {
           authorization: token,
         },

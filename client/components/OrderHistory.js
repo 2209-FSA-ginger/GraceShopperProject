@@ -39,7 +39,7 @@ export const OrderHistory = () => {
             );
           })
         ) : (
-          <h1>Is Loading...</h1>
+          <h1>No order history</h1>
         )}
       </div>
     </div>
