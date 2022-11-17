@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const queryInterface = db.getQueryInterface()
 
 const Product = db.define("product", {
   albumId: {
@@ -80,5 +81,15 @@ const Product = db.define("product", {
     },
   },
 });
+
+const changeId = (queryInterface) => queryInterface.sequelize.transaction(async (transaction) => {
+  // Get current highest value from the table
+  const [[{ max }]] = await queryInterface.sequelize.query(`SELECT MAX("id") AS max FROM "products";`, { transaction });
+  // Set the autoincrement current value to highest value + 1
+  await queryInterface.sequelize.query(`ALTER SEQUENCE "products_id_seq" RESTART WITH ${max + 1};`, { transaction });
+
+})
+
+changeId(queryInterface)
 
 module.exports = Product;

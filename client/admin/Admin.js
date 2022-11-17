@@ -19,6 +19,7 @@ const httpClient = (url, options = {}) => {
 };
 
 const dataProvider = simpleRestProvider(
+  // "http://localhost:8080/api",
   "https://grace-shopper-app.onrender.com/api",
   httpClient
 );

@@ -8,7 +8,9 @@ export const createPaymentSession = createAsyncThunk(
     "checkout/paymentSession",
     async (productInfo) => {
         try{
-            const { data } = await axios.post("https://grace-shopper-app.onrender.com/api/payment/session", productInfo)
+            const { data } = await axios.post( "https://grace-shopper-app.onrender.com/api/payment/session",
+                // "http://localhost:8080/api/payment/session", 
+                                                    productInfo)
             return data
         } catch (error){
             console.log(error)
