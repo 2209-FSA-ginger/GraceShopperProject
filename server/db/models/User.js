@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const queryInterface = db.getQueryInterface()
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
@@ -128,6 +129,16 @@ const hashPassword = async (user) => {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
   }
 };
+
+const changeId = (queryInterface) => queryInterface.sequelize.transaction(async (transaction) => {
+  // Get current highest value from the table
+  const [[{ max }]] = await queryInterface.sequelize.query(`SELECT MAX("id") AS max FROM "users";`, { transaction });
+  // Set the autoincrement current value to highest value + 1
+  await queryInterface.sequelize.query(`ALTER SEQUENCE "users_id_seq" RESTART WITH ${max + 1};`, { transaction });
+
+})
+
+changeId(queryInterface)
 
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
